@@ -1,0 +1,83 @@
+<div #cardElement class="card-container">
+    <swd-card
+        [data]="cardForm.value"
+        [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
+        [class.card-type-battlefield]="cardForm.value?.type === 'BATTLEFIELD'"
+        [class.card-type-plot]="cardForm.value?.type === 'PLOT'"
+        [class.card-type-upgrade]="cardForm.value?.type === 'UPGRADE'"
+        [class.card-type-downgrade]="cardForm.value?.type === 'DOWNGRADE'"
+        [class.card-type-support]="cardForm.value?.type === 'SUPPORT'"
+        [class.card-type-event]="cardForm.value?.type === 'EVENT'"
+        [class.has-die]="cardForm.value?.hasDie"
+    >
+    </swd-card>
+</div>
+
+<div class="form-container">
+    <form [formGroup]="cardForm">
+        <input class="form-input" formControlName="title" />
+        <input class="form-input" formControlName="subtitle" />
+        <input class="form-input" maxlength="2" formControlName="life" />
+        <label>Has die?</label>
+        <input type="checkbox" formControlName="hasDie" />
+        <label>Is unique?</label>
+        <input type="checkbox" formControlName="unique" />
+        <textarea class="form-text-area" formControlName="cardText"></textarea>
+
+        <div *ngFor="let side of sides" [formGroupName]="'side' + side">
+            <div>
+                <label>Side 1: </label>
+                <input type="text" formControlName="value" />
+                <select formControlName="symbol">
+                    <option *ngFor="let symbol of symbols" [ngValue]="symbol.id">{{ symbol.name }}</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Cost: </label>
+                <input type="text" formControlName="costValue" />
+                <select formControlName="costSymbol">
+                    <option *ngFor="let symbol of costSymbols" [ngValue]="symbol.id">{{ symbol.name }}</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Is modifier?</label>
+                <input type="checkbox" formControlName="isModifier" />
+            </div>
+
+            <div>
+                <label>Is feral?</label>
+                <input type="checkbox" formControlName="isFeral" />
+            </div>
+            <hr />
+        </div>
+
+        <label>Card points value</label>
+        <input class="form-input" formControlName="teamCost" />
+
+        <label>Card resource cost</label>
+        <input class="form-input" formControlName="cardCost" />
+
+        <select formControlName="affiliation">
+            <option *ngFor="let affiliation of affiliations" [ngValue]="affiliation.id">{{ affiliation.name }}</option>
+        </select>
+
+        <select formControlName="color">
+            <option *ngFor="let color of colors" [ngValue]="color.id">{{ color.name }}</option>
+        </select>
+
+        <select formControlName="type">
+            <option *ngFor="let type of types" [ngValue]="type.id">{{ type.name }}</option>
+        </select>
+
+        <select formControlName="rarity">
+            <option *ngFor="let type of rarities" [ngValue]="type.id">{{ type.name }}</option>
+        </select>
+
+        <input class="form-input" formControlName="number" />
+        <input class="form-input" formControlName="subtype" />
+    </form>
+
+    <button (click)="renderCanvas()">Download Image</button>
+</div>

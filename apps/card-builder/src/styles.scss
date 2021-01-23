@@ -1,0 +1,554 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'assets/fonts/fontbook';
+
+html, body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+swd-root {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+swd-card {
+    display: block;
+    width: 705px;
+    height: 1000px;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+swd-die-side {
+    display: flex;
+    flex-direction: column;
+    width: 126px;
+    background-image: url('assets/die.png');
+
+    &:last-of-type {
+        .card-die-divisor {
+            display: none;
+        }
+    }
+}
+
+.card-type-battlefield {}
+.card-type-plot {
+    .card-life {
+        display: none;
+    }
+
+    .card-die {
+        top: 0;
+        right: -4px;
+    }
+
+    .card-team-cost {
+        bottom: 40px;
+    }
+
+    .card-cost {
+        display: none;
+    }
+
+    .card-header {
+        top: 506px;
+    }
+
+    .card-type {
+        left: 105px;
+        top: 640px;
+    }
+
+    .card-text {
+        top: 675px;
+        left: 75px;
+        width: 570px;
+    }
+}
+.card-type-character {
+    .card-cost {
+        display: none;
+    }
+
+    .card-text {
+        top: 690px;
+        left: 155px;
+        width: 510px;
+    }
+}
+.card-type-upgrade {
+    .card-die {
+        bottom: 0;
+    }
+
+    .card-type {
+        left: 115px;
+    }
+
+    .card-text {
+        left: 145px;
+    }
+
+    .card-header {
+        top: 540px;
+    }
+
+    .card-text {
+        width: 530px;
+        left: 95px;
+    }
+}
+.card-type-downgrade {
+    .card-header {
+        top: 30px;
+    }
+
+    .card-cost {
+        top: 87px;
+        left: 32px;
+    }
+
+    .card-die {
+        bottom: 0;
+    }
+
+    .card-image {
+        bottom: 0;
+    }
+
+    .card-type {
+        left: 125px;
+        top: 140px;
+    }
+
+    .card-text {
+        top: 175px;
+        left: 85px;
+        width: 580px;
+    }
+}
+.card-type-support {
+    .card-header {
+        top: 70px;
+    }
+
+    .card-text {
+        left: 105px;
+        width: 510px;
+    }
+
+    .card-type {
+        top: 650px;
+        left: 105px;
+        width: 500px;
+    }
+
+    .card-die {
+        top: 0;
+        right: -4px;
+    }
+}
+.card-type-event {
+    .card-header {
+        top: 568px;
+    }
+
+    .card-text {
+        top: 730px;
+        left: 65px;
+        width: 600px;
+    }
+
+    .card-type {
+        top: 697px;
+        left: 65px;
+        width: 600px;
+    }
+}
+
+.card-type-battlefield,
+.card-type-upgrade,
+.card-type-downgrade,
+.card-type-support,
+.card-type-event {
+    .card-team-cost,
+    .card-life {
+        display: none;
+    }
+}
+
+// Modify positions when the cards has a die
+.has-die {
+    &.card-type-event {
+        .card-text {
+            left: 145px;
+            width: 530px;
+        }
+
+        .card-type {
+            top: 697px;
+            left: 135px;
+            width: 500px;
+        }
+
+        .card-die {
+            bottom: 0;
+        }
+    }
+
+    &.card-type-upgrade {
+        .card-text {
+            left: 145px;
+            width: 480px;
+        }
+    }
+}
+
+.card {
+    &-item {
+        position: absolute;
+    }
+
+    &-image {
+        max-width: 705px;
+    }
+
+    &-cost {
+        font-family: "CorbertDestiny-Heavy";
+        font-size: 48px;
+        line-height: 48px;
+        top: 92px;
+        left: 42px;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .swd-icon {
+            font-size: 32px;
+            line-height: 48px;
+            margin-top: -2px;
+        }
+    }
+
+    &-life {
+        font-family: "CorbertDestiny-Heavy";
+        color: white;
+        font-size: 48px;
+        top: 98px;
+        right: 44px;
+        width: 100px;
+        text-align: center;
+    }
+
+    &-container {
+        width: 705px;
+        height: 1000px;
+    }
+
+    &-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        top: 40px;
+        width: 100%;
+        height: 100px;
+        text-align: center;
+        line-height: 30px;
+
+        &-title {
+            position: relative;
+            max-width: 350px;
+            font-family: 'TekoDestiny';
+            font-size: 36px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        &-subtitle {
+            max-width: 350px;
+            font-family: 'Teko';
+            font-size: 28px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+    }
+
+    &-text {
+        top: 680px;
+        left: 165px;
+        width: 500px;
+        font-size: 28px;
+        font-family: 'ITCSymbolStdDestiny';
+        line-height: 36px;
+
+        &--bold {
+            font-family: 'ITC Symbol Std';
+            font-weight: bold;
+        }
+
+        &--italic {
+            font-style: italic;
+        }
+    }
+
+    &-type {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Teko';
+        font-size: 42px;
+        text-transform: uppercase;
+        margin: 0;
+        width: 500px;
+        left: 165px;
+        top: 650px;
+    }
+
+    &-team {
+        &-cost {
+            font-family: "TekoDestiny";
+            font-size: 28px;
+            text-align: center;
+            bottom: 32px;
+            width: 100px;
+        }
+    }
+
+    &-affiliation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid gray;
+        border-radius: 5px;
+        font-family: "TekoDestiny";
+        font-size: 20px;
+        text-transform: uppercase;
+        bottom: 20px;
+        left: 130px;
+        width: 80px;
+        height: 24px;
+        color: black;
+        background-color: lightgray;
+
+        &-villain {
+            color: white;
+            background-color: black;
+        }
+
+        &-hero {
+            background-color: white;
+        }
+    }
+
+    &-color {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid gray;
+        border-radius: 5px;
+        font-family: "TekoDestiny";
+        font-size: 20px;
+        text-transform: uppercase;
+        bottom: 20px;
+        left: 220px;
+        width: 60px;
+        height: 24px;
+        color: black;
+        background-color: rgba(255, 255, 255, 0.6);
+
+        &-red {
+            border-color: #d00f0f;
+        }
+        &-green {
+            border-color: #008C00;
+        }
+        &-yellow {
+            border-color: #d6c839;
+        }
+        &-blue {
+            border-color: #0064cc;
+        }
+    }
+
+    &-signature {
+        display: flex;
+        align-items: center;
+        font-family: "ITC Symbol Std";
+        font-size: 16px;
+        bottom: 20px;
+        left: 315px;
+        height: 24px;
+        color: gray;
+    }
+
+    &-number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid;
+        border-radius: 5px;
+        font-family: "CorbertDestiny-Heavy";
+        font-size: 14px;
+        text-transform: uppercase;
+        bottom: 20px;
+        right: 40px;
+        width: 60px;
+        height: 24px;
+        color: black;
+
+        &-starter {
+            background-color: #c5cdc6;
+            border-color: gray;
+        }
+
+        &-common {
+            background-color: #4cb9dd;
+            border-color: #30758c;
+        }
+
+        &-uncommon {
+            background-color: #fcef6c;
+            border-color: #ada447;
+        }
+
+        &-rare {
+            background-color: #a9ca4f;
+            border-color: #758c37;
+        }
+
+        &-legendary {
+            background-color: #9d5e9f;
+            border-color: #6e3e6f;
+        }
+    }
+
+    &-unique {
+        margin-right: -20px;
+        &::before {
+            content: '';
+            width: 21px;
+            height: 45px;
+            display: inline-block;
+            background-image: url("assets/unique.png");
+            background-repeat: no-repeat;
+            position: absolute;
+            left: -30px;
+            top: -10px;
+        }
+    }
+
+    &-die {
+        display: flex;
+        flex-direction: column;
+        bottom: 66px;
+        color: white;
+
+        &-side {
+            display: flex;
+            flex-direction: column;
+            width: 95px;
+            height: 60px;
+            align-items: center;
+            justify-content: center;
+            margin-left: 14px;
+
+            &-solid {
+                background-color: #000000;
+            }
+
+            &-blank {
+                background-color: #d31e25;
+            }
+
+            &-modifier {
+                background-color: #0a408a;
+            }
+
+            &-feral {
+                background-color: #008C00;
+            }
+
+            &-item {
+                display: flex;
+                align-items: center;
+
+                &-value {
+                    font-family: 'CorbertDestiny-Heavy';
+                    font-size: 32px;
+                    margin-right: 6px;
+                }
+                &-icon {
+                    font-family: 'SWDestiny';
+                    font-size: 24px;
+                    padding-bottom: 2px;
+
+                }
+            }
+
+            &-cost {
+                height: 80px;
+
+                &-item {
+                    display: flex;
+                    align-items: center;
+                }
+
+                &-value {
+                    font-family: 'CorbertDestiny-Heavy';
+                    font-size: 22px;
+                    margin-right: 6px;
+                }
+                &-icon {
+                    font-family: 'SWDestiny';
+                    font-size: 16px;
+                    padding-bottom: 2px;
+
+                    &-resource {
+                        color: yellow;
+                    }
+
+                    &-indirect {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.form {
+    &-container {
+        max-width: 310px;
+    }
+
+    &-input {
+        width: 100%;
+    }
+
+    &-text-area {
+        width: 100%;
+        height: 100px;
+    }
+}
+
+.line-break {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.swd-icon {
+    font-family: 'SWDestiny';
+    font-size: 24px;
+    line-height: 24px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

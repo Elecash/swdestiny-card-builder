@@ -1,0 +1,85 @@
+<img [src]="data?.cardImage" class="card-item card-image" />
+<img
+    [src]="'assets/' + this.data.type.toLowerCase() + '-' + this.data.color.toLowerCase() + '.png'"
+    class="card-item"
+/>
+
+<span class="card-item card-life">{{ data?.life }}</span>
+
+<div class="card-item card-header">
+    <p *ngIf="data?.title" class="card-header-title" [class.card-unique]="data?.unique">
+        {{ data?.title }}
+    </p>
+    <p class="card-header-subtitle" *ngIf="data?.subtitle">
+        {{ data?.subtitle }}
+    </p>
+</div>
+
+<span class="card-item card-die" *ngIf="data?.hasDie">
+    <img
+        src="assets/die-top.png"
+        *ngIf="
+            data?.type === 'CHARACTER' ||
+            data?.type === 'EVENT' ||
+            data?.type === 'UPGRADE' ||
+            data?.type === 'DOWNGRADE'
+        "
+    />
+    <img
+        src="assets/die-top-anchor.png"
+        *ngIf="data?.type === 'SUPPORT' || data?.type === 'PLOT' || data?.type === 'BATTLEFIELD'"
+    />
+
+    <swd-die-side [data]="data?.side1"></swd-die-side>
+    <swd-die-side [data]="data?.side2"></swd-die-side>
+    <swd-die-side [data]="data?.side3"></swd-die-side>
+    <swd-die-side [data]="data?.side4"></swd-die-side>
+    <swd-die-side [data]="data?.side5"></swd-die-side>
+    <swd-die-side [data]="data?.side6"></swd-die-side>
+
+    <img src="assets/die-bottom-anchor.png" *ngIf="data?.type === 'CHARACTER'" />
+    <img
+        src="assets/die-bottom-long-anchor.png"
+        *ngIf="data?.type === 'EVENT' || data?.type === 'UPGRADE' || data?.type === 'DOWNGRADE'"
+    />
+    <img
+        src="assets/die-bottom.png"
+        *ngIf="data?.type === 'SUPPORT' || data?.type === 'PLOT' || data?.type === 'BATTLEFIELD'"
+    />
+</span>
+
+<p class="card-item card-type">
+    {{ data?.type }}<span *ngIf="data?.subtype">&nbsp;-&nbsp;{{ data?.subtype }}</span>
+</p>
+<p class="card-item card-text" [swdAutosize]="maxTextHeight[data?.type]">
+    <span class="text-container" [innerHTML]="data?.cardText | swdTextFormat"></span>
+</p>
+
+<span class="card-item card-team-cost">{{ data?.teamCost }}</span>
+<span class="card-item card-cost">
+    <span>{{ data?.cardCost }}</span>
+    <span class="swd-icon">E</span>
+</span>
+<span class="card-item card-affiliation"
+      [class.card-affiliation-hero]="data?.affiliation === 'HERO'"
+      [class.card-affiliation-villain]="data?.affiliation === 'VILLAIN'">
+    {{ data?.affiliation }}
+</span>
+<span class="card-item card-color"
+      [class.card-color-green]="data?.color === 'GREEN'"
+      [class.card-color-red]="data?.color === 'RED'"
+      [class.card-color-yellow]="data?.color === 'YELLOW'"
+      [class.card-color-blue]="data?.color === 'BLUE'">
+    {{ data?.color }}
+</span>
+<span class="card-item card-signature">Star Wars Destiny Card Builder</span>
+<span
+    class="card-item card-number"
+    [class.card-number-starter]="data?.rarity === 'STARTER'"
+    [class.card-number-common]="data?.rarity === 'COMMON'"
+    [class.card-number-uncommon]="data?.rarity === 'UNCOMMON'"
+    [class.card-number-rare]="data?.rarity === 'RARE'"
+    [class.card-number-legendary]="data?.rarity === 'LEGENDARY'"
+>
+    {{ data?.number }}
+</span>

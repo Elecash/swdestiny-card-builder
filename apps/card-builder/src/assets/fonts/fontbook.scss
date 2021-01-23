@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'Teko';
+    src: url('Teko-Light.woff2') format('woff2'),
+        url('Teko-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SWDestiny';
+    src: url('SWDestiny.woff2') format('woff2'),
+        url('SWDestiny.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CorbertDestiny';
+    src: url('CorbertDestiny-Heavy.woff2') format('woff2'),
+        url('CorbertDestiny-Heavy.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TekoDestiny';
+    src: url('TekoDestiny-Medium.woff2') format('woff2'),
+        url('TekoDestiny-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITCSymbolStdDestiny';
+    src: url('ITCSymbolStdDestiny-Medium.woff2') format('woff2'),
+        url('ITCSymbolStdDestiny-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITC Symbol Std';
+    src: url('ITCSymbolStd-Bold.woff2') format('woff2'),
+    url('ITCSymbolStd-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
