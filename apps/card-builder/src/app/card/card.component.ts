@@ -3,7 +3,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 @Component({
     selector: 'swd-card',
     templateUrl: './card.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class CardComponent implements OnInit {
     @Input() data: any;
@@ -17,7 +17,7 @@ export class CardComponent implements OnInit {
         UPGRADE: 230,
         DOWNGRADE: 230,
         SUPPORT: 230,
-        EVENT: 190
+        EVENT: 190,
     };
 
     ngOnInit() {

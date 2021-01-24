@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import html2canvas from 'html2canvas';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'swd-root',
@@ -36,7 +37,7 @@ export class AppComponent {
             costValue: new FormControl(''),
             costSymbol: new FormControl(''),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false)
+            isFeral: new FormControl(false),
         }),
         side2: new FormGroup({
             value: new FormControl('4'),
@@ -44,7 +45,7 @@ export class AppComponent {
             costValue: new FormControl('1'),
             costSymbol: new FormControl('E'),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false)
+            isFeral: new FormControl(false),
         }),
         side3: new FormGroup({
             value: new FormControl('2'),
@@ -52,7 +53,7 @@ export class AppComponent {
             costValue: new FormControl('1'),
             costSymbol: new FormControl('C'),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false)
+            isFeral: new FormControl(false),
         }),
         side4: new FormGroup({
             value: new FormControl('1'),
@@ -60,7 +61,7 @@ export class AppComponent {
             costValue: new FormControl(''),
             costSymbol: new FormControl(''),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false)
+            isFeral: new FormControl(false),
         }),
         side5: new FormGroup({
             value: new FormControl('1'),
@@ -68,7 +69,7 @@ export class AppComponent {
             costValue: new FormControl(''),
             costSymbol: new FormControl(''),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false)
+            isFeral: new FormControl(false),
         }),
         side6: new FormGroup({
             value: new FormControl(''),
@@ -76,7 +77,7 @@ export class AppComponent {
             costValue: new FormControl(''),
             costSymbol: new FormControl(''),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false)
+            isFeral: new FormControl(false),
         }),
     });
 
@@ -92,7 +93,7 @@ export class AppComponent {
         { id: 'G', name: 'Discard' },
         { id: 'H', name: 'Focus' },
         { id: 'I', name: 'Special' },
-        { id: 'J', name: 'Blank' }
+        { id: 'J', name: 'Blank' },
     ];
 
     costSymbols = [
@@ -103,7 +104,7 @@ export class AppComponent {
     affiliations = [
         { id: 'HERO', name: 'Hero' },
         { id: 'VILLAIN', name: 'Villain' },
-        { id: 'NEUTRAL', name: 'Neutral' }
+        { id: 'NEUTRAL', name: 'Neutral' },
     ];
 
     colors = [
@@ -111,7 +112,7 @@ export class AppComponent {
         { id: 'RED', name: 'Red' },
         { id: 'YELLOW', name: 'Yellow' },
         { id: 'BLUE', name: 'Blue' },
-        { id: 'GRAY', name: 'Gray' }
+        { id: 'GRAY', name: 'Gray' },
     ];
 
     rarities = [
@@ -119,7 +120,7 @@ export class AppComponent {
         { id: 'COMMON', name: 'Common' },
         { id: 'UNCOMMON', name: 'Uncommon' },
         { id: 'RARE', name: 'Rare' },
-        { id: 'LEGENDARY', name: 'Legendary' }
+        { id: 'LEGENDARY', name: 'Legendary' },
     ];
 
     types = [
@@ -129,16 +130,34 @@ export class AppComponent {
         { id: 'UPGRADE', name: 'Upgrade' },
         { id: 'DOWNGRADE', name: 'Downgrade' },
         { id: 'SUPPORT', name: 'Support' },
-        { id: 'EVENT', name: 'Event' }
+        { id: 'EVENT', name: 'Event' },
     ];
 
     ctx: CanvasRenderingContext2D;
+
+    constructor(
+        private cd: ChangeDetectorRef,
+        private sanitizer: DomSanitizer
+    ) {}
+
+    onFileSelected(event) {
+        if (typeof FileReader !== 'undefined') {
+            const reader = new FileReader();
+
+            reader.onload = (e: any) => {
+                this.cardForm.get('cardImage').setValue(e.target.result);
+                this.cd.detectChanges();
+            };
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
 
     renderCanvas() {
         window.scrollTo(0, 0);
         html2canvas(this.cardElement.nativeElement, {
             width: 705,
-            height: 1000
+            height: 1000,
         }).then((canvas) => {
             document.body.appendChild(canvas);
 

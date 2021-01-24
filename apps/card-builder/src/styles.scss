@@ -210,13 +210,25 @@ swd-die-side {
     }
 }
 
+[mat-raised-button].card-image-button {
+    margin-left: 20px;
+}
+
 .card {
     &-item {
         position: absolute;
     }
 
     &-image {
-        max-width: 705px;
+        position: absolute;
+        width: 705px;
+        height: 630px;
+        object-fit: cover;
+        object-position: top center;
+
+        &-container {
+            position: relative;
+        }
     }
 
     &-cost {
@@ -526,7 +538,12 @@ swd-die-side {
 
 .form {
     &-container {
-        max-width: 310px;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    &-padding {
+        padding-top: 20px;
     }
 
     &-input {

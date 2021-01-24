@@ -1,4 +1,7 @@
-<img [src]="data?.cardImage" class="card-item card-image" />
+<div class="card-image-container">
+    <img class="card-image" [src]="data?.cardImage" />
+</div>
+
 <img
     [src]="'assets/' + this.data.type.toLowerCase() + '-' + this.data.color.toLowerCase() + '.png'"
     class="card-item"
@@ -60,16 +63,20 @@
     <span>{{ data?.cardCost }}</span>
     <span class="swd-icon">E</span>
 </span>
-<span class="card-item card-affiliation"
-      [class.card-affiliation-hero]="data?.affiliation === 'HERO'"
-      [class.card-affiliation-villain]="data?.affiliation === 'VILLAIN'">
+<span
+    class="card-item card-affiliation"
+    [class.card-affiliation-hero]="data?.affiliation === 'HERO'"
+    [class.card-affiliation-villain]="data?.affiliation === 'VILLAIN'"
+>
     {{ data?.affiliation }}
 </span>
-<span class="card-item card-color"
-      [class.card-color-green]="data?.color === 'GREEN'"
-      [class.card-color-red]="data?.color === 'RED'"
-      [class.card-color-yellow]="data?.color === 'YELLOW'"
-      [class.card-color-blue]="data?.color === 'BLUE'">
+<span
+    class="card-item card-color"
+    [class.card-color-green]="data?.color === 'GREEN'"
+    [class.card-color-red]="data?.color === 'RED'"
+    [class.card-color-yellow]="data?.color === 'YELLOW'"
+    [class.card-color-blue]="data?.color === 'BLUE'"
+>
     {{ data?.color }}
 </span>
 <span class="card-item card-signature">Star Wars Destiny Card Builder</span>
