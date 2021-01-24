@@ -221,10 +221,8 @@ swd-die-side {
 
     &-image {
         position: absolute;
-        width: 705px;
-        height: 630px;
-        object-fit: cover;
-        object-position: top center;
+        width: 100%;
+        height: auto;
 
         &-container {
             position: relative;
