@@ -10,7 +10,9 @@
 <span class="card-item card-life">{{ data?.life }}</span>
 
 <div class="card-item card-header">
-    <p *ngIf="data?.title" class="card-header-title" [class.card-unique]="data?.unique">
+    <p *ngIf="data?.title" class="card-header-title"
+       [class.card-unique]="data?.unique"
+       [class.card-unique-small]="data?.subtitle">
         {{ data?.title }}
     </p>
     <p class="card-header-subtitle" *ngIf="data?.subtitle">

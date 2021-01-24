@@ -20,7 +20,7 @@ export class AppComponent {
         subtitle: new FormControl('FEROCIOUS GLADIATOR'),
         affiliation: new FormControl('VILLAIN'),
         rarity: new FormControl('LEGENDARY'),
-        number: new FormControl('WH53'),
+        number: new FormControl('WH053'),
         color: new FormControl('YELLOW'),
         type: new FormControl('CHARACTER'),
         subtype: new FormControl('WOOKIE - BOUNTY HUNTER'),
@@ -94,6 +94,7 @@ export class AppComponent {
         { id: 'H', name: 'Focus' },
         { id: 'I', name: 'Special' },
         { id: 'J', name: 'Blank' },
+        { id: '', name: 'None' }
     ];
 
     costSymbols = [

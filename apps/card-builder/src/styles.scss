@@ -279,7 +279,8 @@ swd-die-side {
             position: relative;
             max-width: 350px;
             font-family: 'TekoDestiny';
-            font-size: 36px;
+            font-size: 48px;
+            line-height: 36px;
             text-transform: uppercase;
             margin: 0;
         }
@@ -287,7 +288,8 @@ swd-die-side {
         &-subtitle {
             max-width: 350px;
             font-family: 'Teko';
-            font-size: 28px;
+            font-size: 36px;
+            line-height: 36px;
             text-transform: uppercase;
             margin: 0;
         }
@@ -444,6 +446,15 @@ swd-die-side {
 
     &-unique {
         margin-right: -20px;
+
+        &.card-unique-small::before {
+            width: 12px;
+            height: 24px;
+            left: -20px;
+            top: 3px;
+            background-size: cover;
+        }
+
         &::before {
             content: '';
             width: 21px;
