@@ -8,7 +8,7 @@
         "nx": "nx",
         "start": "ng serve --host 0.0.0.0 --disable-host-check",
         "build": "ng build --prod --base-href /swdestiny-card-builder/",
-        "deploy": "gh-pages -d dist/apps/card-builder",
+        "deploy": "npm run build && gh-pages -d dist/apps/card-builder",
         "test": "ng test",
         "lint": "nx workspace-lint && ng lint",
         "e2e": "ng e2e",
