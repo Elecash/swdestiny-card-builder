@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [AppComponent, CardComponent, DieSideComponent, TextFormatPipe, AutosizeDirective],
@@ -25,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
         MatSlideToggleModule,
         MatSelectModule,
         MatButtonModule,
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent],

@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import html2canvas from 'html2canvas';
-import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { Papa } from 'ngx-papaparse';
 
 @Component({
     selector: 'swd-root',
@@ -14,6 +15,7 @@ export class AppComponent {
     @ViewChild('canvasElement', { static: true }) canvasElement: ElementRef;
 
     cardForm = new FormGroup({
+        googleSheetCSV: new FormControl(''),
         life: new FormControl('13'),
         title: new FormControl('BLACK KRRSANTAN'),
         unique: new FormControl(true),
@@ -25,8 +27,9 @@ export class AppComponent {
         type: new FormControl('CHARACTER'),
         subtype: new FormControl('WOOKIE - BOUNTY HUNTER'),
         cardImage: new FormControl('assets/053-black-krrsantan.png'),
-        cardText: new FormControl(
-            'You can play *wild* upgrades on this character, ignoring play restrictions.//After the upkeep phase begins, you may deal 3 indirect damage to an opponent unless they discard a support or upgrade they control.'
+        cardText: new FormControl('You can play *wild* upgrades on this character, ignoring play restrictions.' +
+            '//After the upkeep phase begins, you may deal 3 indirect damage to an opponent unless they discard a ' +
+            'support or upgrade they control.'
         ),
         teamCost: new FormControl('15/19'),
         cardCost: new FormControl('2'),
@@ -37,7 +40,7 @@ export class AppComponent {
             costValue: new FormControl(''),
             costSymbol: new FormControl(''),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false),
+            isFeral: new FormControl(false)
         }),
         side2: new FormGroup({
             value: new FormControl('4'),
@@ -45,7 +48,7 @@ export class AppComponent {
             costValue: new FormControl('1'),
             costSymbol: new FormControl('E'),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false),
+            isFeral: new FormControl(false)
         }),
         side3: new FormGroup({
             value: new FormControl('2'),
@@ -53,7 +56,7 @@ export class AppComponent {
             costValue: new FormControl('1'),
             costSymbol: new FormControl('C'),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false),
+            isFeral: new FormControl(false)
         }),
         side4: new FormGroup({
             value: new FormControl('1'),
@@ -61,7 +64,7 @@ export class AppComponent {
             costValue: new FormControl(''),
             costSymbol: new FormControl(''),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false),
+            isFeral: new FormControl(false)
         }),
         side5: new FormGroup({
             value: new FormControl('1'),
@@ -69,7 +72,7 @@ export class AppComponent {
             costValue: new FormControl(''),
             costSymbol: new FormControl(''),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false),
+            isFeral: new FormControl(false)
         }),
         side6: new FormGroup({
             value: new FormControl(''),
@@ -77,8 +80,8 @@ export class AppComponent {
             costValue: new FormControl(''),
             costSymbol: new FormControl(''),
             isModifier: new FormControl(false),
-            isFeral: new FormControl(false),
-        }),
+            isFeral: new FormControl(false)
+        })
     });
 
     sides = ['1', '2', '3', '4', '5', '6'];
@@ -99,13 +102,13 @@ export class AppComponent {
 
     costSymbols = [
         { id: 'C', name: 'Indirect' },
-        { id: 'E', name: 'Resource' },
+        { id: 'E', name: 'Resource' }
     ];
 
     affiliations = [
         { id: 'HERO', name: 'Hero' },
         { id: 'VILLAIN', name: 'Villain' },
-        { id: 'NEUTRAL', name: 'Neutral' },
+        { id: 'NEUTRAL', name: 'Neutral' }
     ];
 
     colors = [
@@ -113,7 +116,7 @@ export class AppComponent {
         { id: 'RED', name: 'Red' },
         { id: 'YELLOW', name: 'Yellow' },
         { id: 'BLUE', name: 'Blue' },
-        { id: 'GRAY', name: 'Gray' },
+        { id: 'GRAY', name: 'Gray' }
     ];
 
     rarities = [
@@ -121,7 +124,7 @@ export class AppComponent {
         { id: 'COMMON', name: 'Common' },
         { id: 'UNCOMMON', name: 'Uncommon' },
         { id: 'RARE', name: 'Rare' },
-        { id: 'LEGENDARY', name: 'Legendary' },
+        { id: 'LEGENDARY', name: 'Legendary' }
     ];
 
     types = [
@@ -131,15 +134,17 @@ export class AppComponent {
         { id: 'UPGRADE', name: 'Upgrade' },
         { id: 'DOWNGRADE', name: 'Downgrade' },
         { id: 'SUPPORT', name: 'Support' },
-        { id: 'EVENT', name: 'Event' },
+        { id: 'EVENT', name: 'Event' }
     ];
 
     ctx: CanvasRenderingContext2D;
 
     constructor(
         private cd: ChangeDetectorRef,
-        private sanitizer: DomSanitizer
-    ) {}
+        private http: HttpClient,
+        private papa: Papa
+    ) {
+    }
 
     onFileSelected(event) {
         if (typeof FileReader !== 'undefined') {
@@ -154,11 +159,22 @@ export class AppComponent {
         }
     }
 
+    exportCards() {
+        const url = this.cardForm.value.googleSheetCSV;
+        if (url) {
+            this.http
+                .get(this.cardForm.value.googleSheetCSV, { responseType: 'text' })
+                .subscribe((result) => {
+                    console.log(this.papa.parse(result));
+                });
+        }
+    }
+
     renderCanvas() {
         window.scrollTo(0, 0);
         html2canvas(this.cardElement.nativeElement, {
             width: 705,
-            height: 1000,
+            height: 1000
         }).then((canvas) => {
             document.body.appendChild(canvas);
 
