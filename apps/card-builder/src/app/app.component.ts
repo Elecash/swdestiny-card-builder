@@ -3,6 +3,15 @@ import { FormControl, FormGroup } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import { HttpClient } from '@angular/common/http';
 import { Papa } from 'ngx-papaparse';
+import {
+    parseCardText,
+    parseDieCostSymbol,
+    parseDieCostValue,
+    parseDieSymbol,
+    parseDieValue, parseHasDie,
+    parseIsFeral,
+    parseIsModifier
+} from './die/die.utils';
 
 @Component({
     selector: 'swd-root',
@@ -15,14 +24,15 @@ export class AppComponent {
     @ViewChild('canvasElement', { static: true }) canvasElement: ElementRef;
 
     cardForm = new FormGroup({
-        googleSheetCSV: new FormControl(''),
-        life: new FormControl('13'),
-        title: new FormControl('BLACK KRRSANTAN'),
-        unique: new FormControl(true),
-        subtitle: new FormControl('FEROCIOUS GLADIATOR'),
-        affiliation: new FormControl('VILLAIN'),
-        rarity: new FormControl('LEGENDARY'),
+        googleSheetCSV: new FormControl('https://docs.google.com/spreadsheets/d/e/2PACX-1vTOWSUVSfCFrnN8H3mJ' +
+            '8XSEwbjBaANTW6_Pwdcu8e0qymd_TUUwRGNlmvYYg3Ibi0MitJ1MJh49nm4d/pub?gid=0&single=true&output=csv'),
         number: new FormControl('WH053'),
+        rarity: new FormControl('LEGENDARY'),
+        title: new FormControl('BLACK KRRSANTAN'),
+        subtitle: new FormControl('FEROCIOUS GLADIATOR'),
+        life: new FormControl('13'),
+        unique: new FormControl(true),
+        affiliation: new FormControl('VILLAIN'),
         color: new FormControl('YELLOW'),
         type: new FormControl('CHARACTER'),
         subtype: new FormControl('WOOKIE - BOUNTY HUNTER'),
@@ -83,6 +93,9 @@ export class AppComponent {
             isFeral: new FormControl(false)
         })
     });
+
+    currentCard = 0;
+    cardCollection = [];
 
     sides = ['1', '2', '3', '4', '5', '6'];
 
@@ -165,9 +178,104 @@ export class AppComponent {
             this.http
                 .get(this.cardForm.value.googleSheetCSV, { responseType: 'text' })
                 .subscribe((result) => {
-                    console.log(this.papa.parse(result));
+                    this.cardCollection = this.papa.parse(result).data.splice(1).map(card => {
+                        return {
+                            googleSheetCSV: '',
+                            number: card[0],
+                            rarity: card[1],
+                            title: card[2],
+                            subtitle: card[3],
+                            type: card[4],
+                            subtype: card[5],
+                            cardText: card[6],
+                            side1: {
+                                value: parseDieValue(card[7]),
+                                symbol: parseDieSymbol(card[8]),
+                                costValue: parseDieCostValue(card[9]),
+                                costSymbol: parseDieCostSymbol(card[9]),
+                                isModifier: parseIsModifier(card[7]),
+                                isFeral: parseIsFeral(card[7])
+                            },
+                            side2: {
+                                value: parseDieValue(card[10]),
+                                symbol: parseDieSymbol(card[11]),
+                                costValue: parseDieCostValue(card[12]),
+                                costSymbol: parseDieCostSymbol(card[12]),
+                                isModifier: parseIsModifier(card[10]),
+                                isFeral: parseIsFeral(card[10])
+                            },
+                            side3: {
+                                value: parseDieValue(card[13]),
+                                symbol: parseDieSymbol(card[14]),
+                                costValue: parseDieCostValue(card[15]),
+                                costSymbol: parseDieCostSymbol(card[15]),
+                                isModifier: parseIsModifier(card[13]),
+                                isFeral: parseIsFeral(card[13])
+                            },
+                            side4: {
+                                value: parseDieValue(card[16]),
+                                symbol: parseDieSymbol(card[17]),
+                                costValue: parseDieCostValue(card[18]),
+                                costSymbol: parseDieCostSymbol(card[18]),
+                                isModifier: parseIsModifier(card[16]),
+                                isFeral: parseIsFeral(card[16])
+                            },
+                            side5: {
+                                value: parseDieValue(card[19]),
+                                symbol: parseDieSymbol(card[20]),
+                                costValue: parseDieCostValue(card[21]),
+                                costSymbol: parseDieCostSymbol(card[21]),
+                                isModifier: parseIsModifier(card[19]),
+                                isFeral: parseIsFeral(card[19])
+                            },
+                            side6: {
+                                value: parseDieValue(card[22]),
+                                symbol: parseDieSymbol(card[23]),
+                                costValue: parseDieCostValue(card[24]),
+                                costSymbol: parseDieCostSymbol(card[24]),
+                                isModifier: parseIsModifier(card[22]),
+                                isFeral: parseIsFeral(card[22])
+                            },
+                            affiliation: card[25],
+                            color: card[26],
+                            cardCost: card[27],
+                            life: card[28],
+                            teamCost: card[29],
+                            unique: card[30] === 'TRUE',
+                            hasDie: parseHasDie(card),
+                            cardImage: card[31]
+                        };
+                    });
+
+                    this.currentCard = 0;
+                    this.updateForm(this.currentCard);
+                    // setTimeout(() => this.renderCanvas(), 10);
                 });
         }
+    }
+
+    nextCard() {
+        this.currentCard++;
+
+        if (this.currentCard > this.cardCollection.length) {
+            this.currentCard = 0;
+        }
+
+        this.updateForm(this.currentCard);
+    }
+
+    prevCard() {
+        this.currentCard--;
+
+        if (this.currentCard < 0) {
+            this.currentCard = 0;
+        }
+
+        this.updateForm(this.currentCard);
+    }
+
+    updateForm(cardNumber) {
+        this.cardForm.setValue(this.cardCollection[cardNumber]);
     }
 
     renderCanvas() {

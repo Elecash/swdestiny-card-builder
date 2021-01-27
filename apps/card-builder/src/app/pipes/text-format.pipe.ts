@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { parseCardText } from '../die/die.utils';
 
 @Pipe({
     name: 'swdTextFormat'
@@ -8,7 +9,7 @@ export class TextFormatPipe implements PipeTransform{
         const symbols = value.match(/\$.\$/g);
         if (symbols) {
             symbols.forEach(s => {
-                const symbol = s.replace(/\$/g, '');
+                const symbol = parseCardText(s).replace(/\$/g, '');
                 value = value.replace(s, `<span class="swd-icon">${symbol}</span>`);
             });
         }
