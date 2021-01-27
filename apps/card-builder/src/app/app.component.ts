@@ -4,7 +4,6 @@ import html2canvas from 'html2canvas';
 import { HttpClient } from '@angular/common/http';
 import { Papa } from 'ngx-papaparse';
 import {
-    parseCardText,
     parseDieCostSymbol,
     parseDieCostValue,
     parseDieSymbol,
@@ -248,30 +247,34 @@ export class AppComponent {
                     });
 
                     this.currentCard = 0;
+
                     this.updateForm(this.currentCard);
-                    // setTimeout(() => this.renderCanvas(), 10);
                 });
         }
     }
 
     nextCard() {
-        this.currentCard++;
+        if (this.cardCollection.length) {
+            this.currentCard++;
 
-        if (this.currentCard > this.cardCollection.length) {
-            this.currentCard = 0;
+            if (this.currentCard > this.cardCollection.length) {
+                this.currentCard = 0;
+            }
+
+            this.updateForm(this.currentCard);
         }
-
-        this.updateForm(this.currentCard);
     }
 
     prevCard() {
-        this.currentCard--;
+        if (this.cardCollection.length) {
+            this.currentCard--;
 
-        if (this.currentCard < 0) {
-            this.currentCard = 0;
+            if (this.currentCard < 0) {
+                this.currentCard = this.cardCollection.length - 1;
+            }
+
+            this.updateForm(this.currentCard);
         }
-
-        this.updateForm(this.currentCard);
     }
 
     updateForm(cardNumber) {
@@ -280,14 +283,17 @@ export class AppComponent {
 
     renderCanvas() {
         window.scrollTo(0, 0);
-        html2canvas(this.cardElement.nativeElement, {
+        html2canvas(this.cardElement.nativeElement.querySelector('swd-card'), {
             width: 705,
             height: 1000
         }).then((canvas) => {
             document.body.appendChild(canvas);
 
+            const formValue = this.cardForm.value;
             const link = document.createElement('a');
-            link.download = 'filename.png';
+            link.download = formValue.title
+                ? `${formValue.number}-${formValue.title.split(' ').join('-').toLowerCase()}.png`
+                : 'filename.png';
             link.href = canvas.toDataURL();
             link.click();
 

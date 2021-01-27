@@ -6,7 +6,7 @@ import { parseCardText } from '../die/die.utils';
 })
 export class TextFormatPipe implements PipeTransform{
     transform(value: string): string {
-        const symbols = value.match(/\$.\$/g);
+        const symbols = value.match(/\$(.*?)\$/g);
         if (symbols) {
             symbols.forEach(s => {
                 const symbol = parseCardText(s).replace(/\$/g, '');
@@ -14,7 +14,7 @@ export class TextFormatPipe implements PipeTransform{
             });
         }
 
-        const bolds = value.match(/\*.*\*/g);
+        const bolds = value.match(/\*(.*?)\*/g);
         if (bolds) {
             bolds.forEach(b => {
                 const bold = b.replace(/\*/g, '');
@@ -22,7 +22,7 @@ export class TextFormatPipe implements PipeTransform{
             });
         }
 
-        const italics = value.match(/_.*_/g);
+        const italics = value.match(/_(.*?)_/g);
         if (italics) {
             italics.forEach(i => {
                 const italic = i.replace(/_/g, '');

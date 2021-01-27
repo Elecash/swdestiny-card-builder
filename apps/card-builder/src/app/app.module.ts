@@ -14,20 +14,24 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
     declarations: [AppComponent, CardComponent, DieSideComponent, TextFormatPipe, AutosizeDirective],
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatInputModule,
-        MatTabsModule,
-        MatSlideToggleModule,
-        MatSelectModule,
-        MatButtonModule,
-        HttpClientModule
-    ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatTabsModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatIconModule,
+    MatToolbarModule
+  ],
     providers: [],
     bootstrap: [AppComponent],
 })
