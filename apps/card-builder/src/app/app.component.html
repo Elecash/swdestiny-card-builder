@@ -1,6 +1,7 @@
 <div #cardElement class="card-hidden">
     <swd-card
         [data]="cardForm.value"
+        [class.card-diceless]="!cardForm.value?.hasDie"
         [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
         [class.card-type-battlefield]="cardForm.value?.type === 'BATTLEFIELD'"
         [class.card-type-plot]="cardForm.value?.type === 'PLOT'"
