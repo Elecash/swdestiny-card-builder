@@ -10,9 +10,13 @@
 <span class="card-item card-life">{{ data?.life }}</span>
 
 <div class="card-item card-header">
-    <p *ngIf="data?.title" class="card-header-title"
-       [class.card-unique]="data?.unique"
-       [class.card-unique-small]="data?.subtitle">
+    <p #headerElement *ngIf="data?.title" class="card-header-title" [class.multiline]="isMultiline">
+        <img
+            src="assets/unique.png"
+            *ngIf="data?.unique"
+            class="card-unique"
+            [class.card-unique-small]="data?.subtitle || isMultiline"
+        />
         {{ data?.title }}
     </p>
     <p class="card-header-subtitle" *ngIf="data?.subtitle">

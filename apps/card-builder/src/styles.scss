@@ -14,7 +14,7 @@ body {
 
 swd-root {
     display: flex;
-    width: 1280px;
+    width: 1365px;
 }
 
 swd-card {
@@ -24,6 +24,11 @@ swd-card {
     position: relative;
     border-radius: 15px;
     overflow: hidden;
+
+    &.preview {
+        transform: scale(0.5);
+        transform-origin: 50% 0;
+    }
 }
 
 swd-die-side {
@@ -39,14 +44,69 @@ swd-die-side {
     }
 }
 
+.u-fs-16 {
+    font-size: 16px !important;
+}
+
 .spacer {
     display: flex;
     flex: 1 1 auto;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
-.card-type-battlefield {}
+.card-hidden {
+    position: absolute;
+    top: -2000px;
+    left: -2000px;
+}
+
+.card-type-battlefield {
+    width: 1000px;
+    height: 705px;
+
+    swd-card {
+        width: 1000px;
+        height: 705px;
+    }
+
+    &.preview {
+        transform-origin: 210px 0;
+    }
+
+    .card-signature {
+        font-size: 14px;
+        bottom: 15px;
+        left: 620px;
+        color: black;
+    }
+
+    .card-affiliation {
+        left: 500px;
+        bottom: 16px;
+    }
+
+    .card-text {
+        top: 480px;
+        left: 95px;
+        width: 820px;
+        height: 120px;
+    }
+
+    .card-color {
+        bottom: 14px;
+        left: 410px;
+        width: 80px;
+        height: 26px;
+        background-color: #eee;
+    }
+
+    .card-cost,
+    .card-type {
+        display: none;
+    }
+}
+
 .card-type-plot {
     .card-life {
         display: none;
@@ -81,6 +141,14 @@ swd-die-side {
     }
 }
 .card-type-character {
+    &.card-diceless {
+        .card-type,
+        .card-text {
+            left: 55px;
+            width: 610px;
+        }
+    }
+
     .card-cost {
         display: none;
     }
@@ -106,6 +174,10 @@ swd-die-side {
 
     .card-header {
         top: 540px;
+
+        &-title {
+            max-width: 320px;
+        }
     }
 
     .card-text {
@@ -224,6 +296,10 @@ swd-die-side {
 }
 
 .card {
+    &-form {
+        min-width: 640px;
+    }
+
     &-item {
         position: absolute;
     }
@@ -261,7 +337,7 @@ swd-die-side {
     &-life {
         font-family: "CorbertDestiny";
         color: white;
-        font-size: 48px;
+        font-size: 52px;
         top: 98px;
         right: 44px;
         width: 100px;
@@ -271,6 +347,7 @@ swd-die-side {
     &-container {
         width: 705px;
         height: 1000px;
+        margin-right: 20px;
     }
 
     &-header {
@@ -285,20 +362,28 @@ swd-die-side {
         line-height: 30px;
 
         &-title {
-            position: relative;
-            max-width: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 340px;
             font-family: 'TekoDestiny';
-            font-size: 48px;
-            line-height: 36px;
+            font-size: 46px;
+            line-height: 32px;
             text-transform: uppercase;
             margin: 0;
+
+            &.multiline {
+                display: block;
+                justify-content: initial;
+                align-items: initial;
+            }
         }
 
         &-subtitle {
-            max-width: 350px;
+            max-width: 320px;
             font-family: 'Teko';
-            font-size: 36px;
-            line-height: 36px;
+            font-size: 32px;
+            line-height: 32px;
             text-transform: uppercase;
             margin: 0;
         }
@@ -454,26 +539,16 @@ swd-die-side {
     }
 
     &-unique {
-        margin-right: -20px;
+        width: 21px;
+        height: 45px;
+        display: inline-block;
+        margin-right: 8px;
 
-        &.card-unique-small::before {
+        &.card-unique-small {
             width: 12px;
             height: 24px;
-            left: -20px;
-            top: 3px;
-            background-size: cover;
-        }
-
-        &::before {
-            content: '';
-            width: 21px;
-            height: 45px;
-            display: inline-block;
-            background-image: url("assets/unique.png");
-            background-repeat: no-repeat;
-            position: absolute;
-            left: -30px;
-            top: -10px;
+            margin-right: 4px;
+            margin-bottom: 4px;
         }
     }
 

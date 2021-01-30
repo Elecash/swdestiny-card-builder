@@ -1,11 +1,22 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 
 @Component({
     selector: 'swd-card',
     templateUrl: './card.component.html',
     encapsulation: ViewEncapsulation.None,
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnChanges {
+    @ViewChild('headerElement') headerElement: ElementRef;
+
     @Input() data: any;
 
     backImage;
@@ -20,7 +31,23 @@ export class CardComponent implements OnInit {
         EVENT: 190,
     };
 
-    ngOnInit() {
-        this.backImage = `assets/${this.data.type.toLowerCase()}-${this.data.color.toLowerCase()}.png`;
+    isMultiline = false;
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['data']) {
+            setTimeout(() => this.isMultiline = this.countLines() > 1, 10);
+        }
+    }
+
+    countLines() {
+        if (this.headerElement) {
+            const elem = this.headerElement.nativeElement;
+            const elemHeight = elem.offsetHeight;
+            const lineHeight = parseInt(window.getComputedStyle(elem).getPropertyValue('line-height'));
+            console.log(elemHeight / lineHeight);
+            return elemHeight / lineHeight;
+        } else {
+            return 0;
+        }
     }
 }

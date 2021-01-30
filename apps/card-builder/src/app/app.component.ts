@@ -171,7 +171,7 @@ export class AppComponent {
         }
     }
 
-    exportCards() {
+    importCards() {
         const url = this.cardForm.value.googleSheetCSV;
         if (url) {
             this.http
@@ -257,7 +257,7 @@ export class AppComponent {
         if (this.cardCollection.length) {
             this.currentCard++;
 
-            if (this.currentCard > this.cardCollection.length) {
+            if (this.currentCard > this.cardCollection.length - 1) {
                 this.currentCard = 0;
             }
 
@@ -282,11 +282,21 @@ export class AppComponent {
     }
 
     renderCanvas() {
+        let options = {};
+
+        if (this.cardForm.value.type === 'BATTLEFIELD') {
+            options = {
+                width: 1000,
+                height: 705
+            };
+        } else {
+            options = {
+                width: 705,
+                height: 1000
+            };
+        }
         window.scrollTo(0, 0);
-        html2canvas(this.cardElement.nativeElement.querySelector('swd-card'), {
-            width: 705,
-            height: 1000
-        }).then((canvas) => {
+        html2canvas(this.cardElement.nativeElement.querySelector('swd-card'), options).then((canvas) => {
             document.body.appendChild(canvas);
 
             const formValue = this.cardForm.value;

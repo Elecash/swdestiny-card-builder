@@ -1,20 +1,4 @@
-<div #cardElement class="card-container">
-    <mat-toolbar color="primary">
-        <mat-toolbar-row>
-            <button mat-icon-button *ngIf="cardCollection.length">
-                <mat-icon (click)="prevCard()">chevron_left</mat-icon>
-            </button>
-            <span class="spacer">
-                <button mat-raised-button color="accent" (click)="renderCanvas()">
-                    Download Card
-                </button>
-            </span>
-            <button mat-icon-button *ngIf="cardCollection.length">
-                <mat-icon (click)="nextCard()">chevron_right</mat-icon>
-            </button>
-        </mat-toolbar-row>
-    </mat-toolbar>
-
+<div #cardElement class="card-hidden">
     <swd-card
         [data]="cardForm.value"
         [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
@@ -29,8 +13,39 @@
     </swd-card>
 </div>
 
-<form [formGroup]="cardForm">
-    <mat-tab-group mat-stretch-tabs style='max-width: 575px'>
+<div class="card-container">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span class="spacer">
+                <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
+            </span>
+            <button mat-icon-button [disabled]="!cardCollection.length">
+                <mat-icon (click)="prevCard()">chevron_left</mat-icon>
+            </button>
+            <button mat-icon-button [disabled]="!cardCollection.length">
+                <mat-icon (click)="nextCard()">chevron_right</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <swd-card
+        class="preview"
+        [data]="cardForm.value"
+        [class.card-diceless]="!cardForm.value?.hasDie"
+        [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
+        [class.card-type-battlefield]="cardForm.value?.type === 'BATTLEFIELD'"
+        [class.card-type-plot]="cardForm.value?.type === 'PLOT'"
+        [class.card-type-upgrade]="cardForm.value?.type === 'UPGRADE'"
+        [class.card-type-downgrade]="cardForm.value?.type === 'DOWNGRADE'"
+        [class.card-type-support]="cardForm.value?.type === 'SUPPORT'"
+        [class.card-type-event]="cardForm.value?.type === 'EVENT'"
+        [class.has-die]="cardForm.value?.hasDie"
+    >
+    </swd-card>
+</div>
+
+<form [formGroup]="cardForm" class="card-form">
+    <mat-tab-group mat-stretch-tabs>
         <mat-tab label="Card config">
             <mat-form-field class="form-input form-padding">
                 <mat-label>Type</mat-label>
@@ -118,6 +133,22 @@
                 <mat-label>Card rules</mat-label>
                 <textarea matInput class="form-text-area" formControlName="cardText"></textarea>
             </mat-form-field>
+            <p>Text formatting:</p>
+            <ul>
+                <li>//: breakline</li>
+                <li>*word*: <strong>bold</strong></li>
+                <li>_word_: <i>italic</i></li>
+                <li>$M$: <span class="swd-icon u-fs-16">A</span></li>
+                <li>$G$: <span class="swd-icon u-fs-16">B</span></li>
+                <li>$I$: <span class="swd-icon u-fs-16">C</span></li>
+                <li>$S$: <span class="swd-icon u-fs-16">D</span></li>
+                <li>$R$: <span class="swd-icon u-fs-16">E</span></li>
+                <li>$D$: <span class="swd-icon u-fs-16">F</span></li>
+                <li>$C$: <span class="swd-icon u-fs-16">G</span></li>
+                <li>$F$: <span class="swd-icon u-fs-16">H</span></li>
+                <li>$O$: <span class="swd-icon u-fs-16">I</span></li>
+                <li>$B$: <span class="swd-icon u-fs-16">J</span></li>
+            </ul>
         </mat-tab>
 
         <mat-tab label="Die" *ngIf="cardForm.value?.hasDie">
@@ -163,12 +194,12 @@
         <mat-tab label="Import/Export">
             <div class="form-padding">
                 <mat-form-field class="form-input form-padding">
-                    <mat-label>Import data from Google Sheet (enter public CSV url)</mat-label>
+                    <mat-label>Import a card collection from Google Sheet (enter public CSV url)</mat-label>
                     <input matInput class="form-input" formControlName="googleSheetCSV" />
                 </mat-form-field>
 
-                <button mat-raised-button color="accent" *ngIf="cardForm.value?.googleSheetCSV" (click)="exportCards()">
-                    Export Cards
+                <button mat-raised-button color="accent" *ngIf="cardForm.value?.googleSheetCSV" (click)="importCards()">
+                    Import
                 </button>
             </div>
         </mat-tab>
