@@ -11,6 +11,7 @@ import {
     parseIsFeral,
     parseIsModifier
 } from './die/die.utils';
+import * as JSZip from 'jszip';
 
 @Component({
     selector: 'swd-root',
@@ -95,6 +96,9 @@ export class AppComponent {
 
     currentCard = 0;
     cardCollection = [];
+    cardLoaded = false;
+    downloadingCollection = false;
+    zip;
 
     sides = ['1', '2', '3', '4', '5', '6'];
 
@@ -281,6 +285,19 @@ export class AppComponent {
         this.cardForm.setValue(this.cardCollection[cardNumber]);
     }
 
+    downloadCollection() {
+        this.zip = new JSZip();
+        this.downloadingCollection = true;
+        this.renderCanvas();
+    }
+
+    onLoadCard() {
+        console.log('on load card');
+        if (this.downloadingCollection) {
+            this.renderCanvas();
+        }
+    }
+
     renderCanvas() {
         let options = {};
 
@@ -298,14 +315,31 @@ export class AppComponent {
         window.scrollTo(0, 0);
         html2canvas(this.cardElement.nativeElement.querySelector('swd-card'), options).then((canvas) => {
             document.body.appendChild(canvas);
+            canvas.classList.add('card-hidden');
 
             const formValue = this.cardForm.value;
-            const link = document.createElement('a');
-            link.download = formValue.title
-                ? `${formValue.number}-${formValue.title.split(' ').join('-').toLowerCase()}.png`
-                : 'filename.png';
-            link.href = canvas.toDataURL();
-            link.click();
+            const filename = `${formValue.number}-${formValue.title.split(' ').join('-').toLowerCase()}.png`;
+
+            if (this.downloadingCollection) {
+                const imgUri = canvas.toDataURL().split(';base64,')[1];
+                this.zip.file(filename, imgUri, { base64: true });
+
+                if (this.currentCard === this.cardCollection.length - 1) {
+                    this.downloadingCollection = false;
+                    this.zip.generateAsync({ type: 'blob' }).then((content) => {
+                        window.location.href = URL.createObjectURL(content);
+                    });
+                } else {
+                    this.nextCard();
+                }
+            } else {
+                const link = document.createElement('a');
+                link.download = formValue.title
+                    ? filename
+                    : 'filename.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            }
 
             document.body.removeChild(canvas);
         });

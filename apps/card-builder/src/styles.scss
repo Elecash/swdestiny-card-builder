@@ -296,6 +296,17 @@ swd-die-side {
 }
 
 .card {
+    &-loader {
+        position: absolute;
+        top: calc(50% - 50px);
+        left: calc(50% - 50px);
+        z-index: 100;
+
+        &.mat-progress-spinner {
+            display: inline;
+        }
+    }
+
     &-form {
         min-width: 640px;
     }

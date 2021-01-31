@@ -10,6 +10,7 @@
         [class.card-type-support]="cardForm.value?.type === 'SUPPORT'"
         [class.card-type-event]="cardForm.value?.type === 'EVENT'"
         [class.has-die]="cardForm.value?.hasDie"
+        (cardLoaded)="onLoadCard()"
     >
     </swd-card>
 </div>
@@ -201,6 +202,19 @@
 
                 <button mat-raised-button color="accent" *ngIf="cardForm.value?.googleSheetCSV" (click)="importCards()">
                     Import
+                </button>
+            </div>
+
+            <div class="form-padding" *ngIf="cardCollection.length">
+                <hr />
+
+                <p *ngIf="downloadingCollection">Grab and coffee and relax, this might take a while...</p>
+
+                <button mat-raised-button
+                        color="accent"
+                        (click)="downloadCollection()"
+                        [disabled]='downloadingCollection'>
+                    Download Collection
                 </button>
             </div>
         </mat-tab>

@@ -1,8 +1,15 @@
+<mat-spinner class='card-loader' *ngIf='isLoadingImage'></mat-spinner>
+
 <div class="card-image-container">
-    <img class="card-image" [src]="data?.cardImage" />
+    <img #cardImageElement
+         class="card-image"
+         [src]="data?.cardImage"
+         (load)='onLoadImage()'
+    />
 </div>
 
 <img
+    #cardBackElement
     [src]="'assets/' + this.data.type.toLowerCase() + '-' + this.data.color.toLowerCase() + '.png'"
     class="card-item"
 />

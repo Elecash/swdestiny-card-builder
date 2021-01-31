@@ -1,9 +1,9 @@
 import {
     Component,
-    ElementRef,
+    ElementRef, EventEmitter,
     Input,
     OnChanges,
-    OnInit,
+    OnInit, Output,
     SimpleChanges,
     ViewChild,
     ViewEncapsulation
@@ -16,10 +16,11 @@ import {
 })
 export class CardComponent implements OnChanges {
     @ViewChild('headerElement') headerElement: ElementRef;
+    @ViewChild('cardImageElement', { static: true }) cardImageElement: ElementRef;
+    @ViewChild('cardBackElement', { static: true }) cardBackElement: ElementRef;
 
     @Input() data: any;
-
-    backImage;
+    @Output() cardLoaded: EventEmitter<null> = new EventEmitter<null>();
 
     maxTextHeight = {
         BATTLEFIELD: 175,
@@ -32,11 +33,26 @@ export class CardComponent implements OnChanges {
     };
 
     isMultiline = false;
+    isLoadingImage = false;
+    timeoutId;
+    countLinesId;
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['data']) {
-            setTimeout(() => this.isMultiline = this.countLines() > 1, 10);
+            if (this.data.cardImage) {
+                this.isLoadingImage = true;
+            } else {
+                clearTimeout(this.timeoutId);
+                this.timeoutId = setTimeout(() => this.onLoadImage(), 1000);
+            }
+            clearTimeout(this.countLinesId);
+            this.countLinesId = setTimeout(() => (this.isMultiline = this.countLines() > 1), 10);
         }
+    }
+
+    onLoadImage() {
+        this.isLoadingImage = false;
+        this.cardLoaded.emit();
     }
 
     countLines() {
@@ -44,7 +60,6 @@ export class CardComponent implements OnChanges {
             const elem = this.headerElement.nativeElement;
             const elemHeight = elem.offsetHeight;
             const lineHeight = parseInt(window.getComputedStyle(elem).getPropertyValue('line-height'));
-            console.log(elemHeight / lineHeight);
             return elemHeight / lineHeight;
         } else {
             return 0;

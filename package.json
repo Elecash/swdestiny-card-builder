@@ -42,6 +42,7 @@
         "@angular/router": "^11.0.0",
         "@nrwl/angular": "11.1.5",
         "html2canvas": "^1.0.0-rc.7",
+        "jszip": "^3.5.0",
         "konva": "^7.2.2",
         "ngx-papaparse": "^5.0.0",
         "rxjs": "~6.5.5",

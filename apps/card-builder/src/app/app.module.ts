@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [AppComponent, CardComponent, DieSideComponent, TextFormatPipe, AutosizeDirective],
@@ -30,7 +31,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     HttpClientModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressSpinnerModule
   ],
     providers: [],
     bootstrap: [AppComponent],
