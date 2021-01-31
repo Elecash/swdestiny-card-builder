@@ -1,11 +1,7 @@
-<mat-spinner class='card-loader' *ngIf='isLoadingImage'></mat-spinner>
+<mat-spinner class="card-loader" *ngIf="isLoadingImage"></mat-spinner>
 
 <div class="card-image-container">
-    <img #cardImageElement
-         class="card-image"
-         [src]="data?.cardImage"
-         (load)='onLoadImage()'
-    />
+    <img #cardImageElement class="card-image" [src]="data?.cardImage" (load)="onLoadImage()" />
 </div>
 
 <img

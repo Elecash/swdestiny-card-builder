@@ -17,23 +17,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
     declarations: [AppComponent, CardComponent, DieSideComponent, TextFormatPipe, AutosizeDirective],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatTabsModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    MatButtonModule,
-    HttpClientModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule
-  ],
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatTabsModule,
+        MatSlideToggleModule,
+        MatSelectModule,
+        MatButtonModule,
+        HttpClientModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatProgressSpinnerModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule
+    ],
     providers: [],
     bootstrap: [AppComponent],
 })
