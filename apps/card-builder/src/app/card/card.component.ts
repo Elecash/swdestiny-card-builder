@@ -1,12 +1,14 @@
 import {
     Component,
-    ElementRef, EventEmitter,
+    ElementRef,
+    EventEmitter,
     Input,
     OnChanges,
-    OnInit, Output,
+    OnInit,
+    Output,
     SimpleChanges,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -26,6 +28,7 @@ export class CardComponent implements OnChanges {
         BATTLEFIELD: 175,
         PLOT: 175,
         CHARACTER: 230,
+        DICELESS_CHARACTER: 210,
         UPGRADE: 230,
         DOWNGRADE: 230,
         SUPPORT: 230,

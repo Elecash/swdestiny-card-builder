@@ -63,7 +63,12 @@
 <p class="card-item card-type">
     {{ data?.type }}<span *ngIf="data?.subtype">&nbsp;-&nbsp;{{ data?.subtype }}</span>
 </p>
-<p class="card-item card-text" [swdAutosize]="maxTextHeight[data?.type]">
+<p
+    class="card-item card-text"
+    [swdAutosize]="
+        !data?.hasDie && data?.type === 'CHARACTER' ? maxTextHeight['DICELESS_CHARACTER'] : maxTextHeight[data?.type]
+    "
+>
     <span class="text-container" [innerHTML]="data?.cardText | swdTextFormat"></span>
 </p>
 
