@@ -17,6 +17,7 @@ import { Card } from './card.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { environment } from '../environments/environment';
 
 @Component({
     selector: 'swd-root',
@@ -258,7 +259,9 @@ export class AppComponent {
                             teamCost: card[29],
                             unique: card[30] === 'TRUE',
                             hasDie: parseHasDie(card),
-                            cardImage: card[31],
+                            cardImage: environment.production
+                                ? card[31]
+                                : card[31].replace('https://elecash.github.io/swdestiny-card-builder/', '')
                         };
                     });
 
