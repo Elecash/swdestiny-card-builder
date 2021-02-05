@@ -172,6 +172,10 @@ export class AppComponent {
 
     constructor(private cd: ChangeDetectorRef, private http: HttpClient, private papa: Papa) {}
 
+    ngOnInit() {
+        this.importCards();
+    }
+
     onFileSelected(event) {
         if (typeof FileReader !== 'undefined') {
             const reader = new FileReader();
