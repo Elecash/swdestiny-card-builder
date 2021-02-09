@@ -27,7 +27,7 @@ swd-card {
 
     &.preview {
         transform: scale(0.5);
-        transform-origin: 50% 0;
+        transform-origin: 150px 0;
     }
 }
 
@@ -71,7 +71,7 @@ swd-die-side {
     }
 
     &.preview {
-        transform-origin: 210px 0;
+        transform-origin: 0 0;
     }
 
     .card-signature {
@@ -379,7 +379,7 @@ swd-die-side {
     }
 
     &-container {
-        width: 705px;
+        width: 500px;
         height: 1000px;
         margin-right: 20px;
     }
@@ -577,12 +577,12 @@ swd-die-side {
         height: 45px;
         display: inline-block;
         margin-right: 8px;
+        margin-bottom: 4px;
 
         &.card-unique-small {
             width: 12px;
             height: 24px;
             margin-right: 4px;
-            margin-bottom: 4px;
         }
     }
 

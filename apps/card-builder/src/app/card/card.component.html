@@ -17,14 +17,14 @@
 <span class="card-item card-life">{{ data?.life }}</span>
 
 <div class="card-item card-header">
-    <p #headerElement *ngIf="data?.title" class="card-header-title" [class.multiline]="isMultiline">
+    <p *ngIf="data?.title" class="card-header-title" [class.multiline]="isMultiline">
         <img
             src="assets/unique.png"
             *ngIf="data?.unique"
             class="card-unique"
-            [class.card-unique-small]="data?.subtitle || isMultiline"
+            [class.card-unique-small]="data?.subtitle?.length > 0 || isMultiline"
         />
-        {{ data?.title }}
+        <span #headerElement>{{ data?.title }}</span>
     </p>
     <p class="card-header-subtitle" *ngIf="data?.subtitle">
         {{ data?.subtitle }}

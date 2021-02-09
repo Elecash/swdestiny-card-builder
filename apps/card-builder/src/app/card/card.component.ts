@@ -4,17 +4,16 @@ import {
     EventEmitter,
     Input,
     OnChanges,
-    OnInit,
     Output,
     SimpleChanges,
     ViewChild,
-    ViewEncapsulation,
+    ViewEncapsulation
 } from '@angular/core';
 
 @Component({
     selector: 'swd-card',
     templateUrl: './card.component.html',
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class CardComponent implements OnChanges {
     @ViewChild('headerElement') headerElement: ElementRef;
@@ -32,7 +31,7 @@ export class CardComponent implements OnChanges {
         UPGRADE: 230,
         DOWNGRADE: 230,
         SUPPORT: 230,
-        EVENT: 190,
+        EVENT: 190
     };
 
     isMultiline = false;
@@ -42,6 +41,7 @@ export class CardComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['data']) {
+            this.isMultiline = false;
             if (this.data.cardImage) {
                 this.isLoadingImage = true;
             } else {
