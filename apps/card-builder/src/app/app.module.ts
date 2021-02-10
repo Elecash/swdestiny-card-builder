@@ -20,13 +20,27 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { AppRoutingModule } from './app-routing.module';
+import { BuilderComponent } from './builder/builder.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { WildHorizonsComponent } from './wild-horizons/wild-horizons.component';
 
 @NgModule({
-    declarations: [AppComponent, CardComponent, DieSideComponent, TextFormatPipe, AutosizeDirective],
+    declarations: [
+        AppComponent,
+        BuilderComponent,
+        WildHorizonsComponent,
+        CardComponent,
+        DieSideComponent,
+        TextFormatPipe,
+        AutosizeDirective
+    ],
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
+        AppRoutingModule,
         MatInputModule,
         MatTabsModule,
         MatSlideToggleModule,
@@ -38,7 +52,9 @@ import { MatSortModule } from '@angular/material/sort';
         MatProgressSpinnerModule,
         MatTableModule,
         MatPaginatorModule,
-        MatSortModule
+        MatSortModule,
+        MatSidenavModule,
+        MatListModule
     ],
     providers: [],
     bootstrap: [AppComponent],

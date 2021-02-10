@@ -1,0 +1,189 @@
+<div #cardElement class="card-hidden">
+    <swd-card
+        [data]="cardForm.value"
+        [class.card-diceless]="!cardForm.value?.hasDie"
+        [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
+        [class.card-type-battlefield]="cardForm.value?.type === 'BATTLEFIELD'"
+        [class.card-type-plot]="cardForm.value?.type === 'PLOT'"
+        [class.card-type-upgrade]="cardForm.value?.type === 'UPGRADE'"
+        [class.card-type-downgrade]="cardForm.value?.type === 'DOWNGRADE'"
+        [class.card-type-support]="cardForm.value?.type === 'SUPPORT'"
+        [class.card-type-event]="cardForm.value?.type === 'EVENT'"
+        [class.has-die]="cardForm.value?.hasDie"
+    >
+    </swd-card>
+</div>
+
+<div class="card-container">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span class="spacer">
+                <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
+            </span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <swd-card
+        class="preview"
+        [data]="cardForm.value"
+        [class.card-diceless]="!cardForm.value?.hasDie"
+        [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
+        [class.card-type-battlefield]="cardForm.value?.type === 'BATTLEFIELD'"
+        [class.card-type-plot]="cardForm.value?.type === 'PLOT'"
+        [class.card-type-upgrade]="cardForm.value?.type === 'UPGRADE'"
+        [class.card-type-downgrade]="cardForm.value?.type === 'DOWNGRADE'"
+        [class.card-type-support]="cardForm.value?.type === 'SUPPORT'"
+        [class.card-type-event]="cardForm.value?.type === 'EVENT'"
+        [class.has-die]="cardForm.value?.hasDie"
+    >
+    </swd-card>
+</div>
+
+<form [formGroup]="cardForm" class="card-form">
+    <mat-tab-group mat-stretch-tabs>
+        <mat-tab label="Card config">
+            <mat-form-field class="form-input form-padding">
+                <mat-label>Type</mat-label>
+                <select matNativeControl formControlName="type">
+                    <option *ngFor="let type of types" [ngValue]="type.id">{{ type.name }}</option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field class="form-input">
+                <mat-label>Affiliation</mat-label>
+                <select matNativeControl formControlName="affiliation">
+                    <option *ngFor="let affiliation of affiliations" [ngValue]="affiliation.id">
+                        {{ affiliation.name }}
+                    </option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field class="form-input">
+                <mat-label>Color</mat-label>
+                <select matNativeControl formControlName="color">
+                    <option *ngFor="let color of colors" [ngValue]="color.id">{{ color.name }}</option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field class="form-input">
+                <mat-label>Rarity</mat-label>
+                <select matNativeControl formControlName="rarity">
+                    <option *ngFor="let type of rarities" [ngValue]="type.id">{{ type.name }}</option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field class="form-input">
+                <mat-label>Number</mat-label>
+                <input matInput class="form-input" formControlName="number" />
+            </mat-form-field>
+
+            <mat-form-field class="form-input">
+                <mat-label>Subtypes (dash separated)</mat-label>
+                <input matInput class="form-input" formControlName="subtype" />
+            </mat-form-field>
+
+            <div class="form-input">
+                <mat-label>Card Image</mat-label>
+                <button mat-raised-button color="accent" class="card-image-button" (click)="fileInput.click()">
+                    Choose File
+                </button>
+                <input hidden (change)="onFileSelected($event)" #fileInput type="file" />
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Ruling">
+            <mat-form-field class="form-padding">
+                <mat-label>Card points value</mat-label>
+                <input matInput class="form-input" formControlName="teamCost" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Card resource cost</mat-label>
+                <input matInput class="form-input" formControlName="cardCost" />
+            </mat-form-field>
+
+            <mat-form-field class="form-input">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" />
+            </mat-form-field>
+
+            <mat-form-field class="form-input">
+                <mat-label>Subtitle</mat-label>
+                <input matInput formControlName="subtitle" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Life points</mat-label>
+                <input matInput maxlength="2" formControlName="life" />
+            </mat-form-field>
+
+            <div>
+                <mat-slide-toggle formControlName="hasDie">Has die?</mat-slide-toggle>
+            </div>
+            <div>
+                <mat-slide-toggle formControlName="unique">Is unique?</mat-slide-toggle>
+            </div>
+
+            <mat-form-field class="form-input form-padding">
+                <mat-label>Card rules</mat-label>
+                <textarea matInput class="form-text-area" formControlName="cardText"></textarea>
+            </mat-form-field>
+            <p>Text formatting:</p>
+            <ul>
+                <li>//: breakline</li>
+                <li>*word*: <strong>bold</strong></li>
+                <li>_word_: <i>italic</i></li>
+                <li>$M$: <span class="swd-icon u-fs-16">A</span></li>
+                <li>$G$: <span class="swd-icon u-fs-16">B</span></li>
+                <li>$I$: <span class="swd-icon u-fs-16">C</span></li>
+                <li>$S$: <span class="swd-icon u-fs-16">D</span></li>
+                <li>$R$: <span class="swd-icon u-fs-16">E</span></li>
+                <li>$D$: <span class="swd-icon u-fs-16">F</span></li>
+                <li>$C$: <span class="swd-icon u-fs-16">G</span></li>
+                <li>$F$: <span class="swd-icon u-fs-16">H</span></li>
+                <li>$O$: <span class="swd-icon u-fs-16">I</span></li>
+                <li>$B$: <span class="swd-icon u-fs-16">J</span></li>
+            </ul>
+        </mat-tab>
+
+        <mat-tab label="Die" *ngIf="cardForm.value?.hasDie">
+            <div *ngFor="let side of sides" [formGroupName]="'side' + side" class="die-spacer">
+                <div>
+                    <mat-form-field class="form-input__half">
+                        <mat-label>Side {{ side }}</mat-label>
+                        <input matInput type="text" formControlName="value" />
+                    </mat-form-field>
+                    <mat-form-field class="form-input__half">
+                        <mat-label>Symbol</mat-label>
+                        <select matNativeControl formControlName="symbol">
+                            <option *ngFor="let symbol of symbols" [ngValue]="symbol.id">{{ symbol.name }}</option>
+                        </select>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field class="form-input__half">
+                        <mat-label>Cost</mat-label>
+                        <input matInput type="text" formControlName="costValue" />
+                    </mat-form-field>
+                    <mat-form-field class="form-input__half">
+                        <mat-label>Symbol</mat-label>
+                        <select matNativeControl formControlName="costSymbol">
+                            <option *ngFor="let symbol of costSymbols" [ngValue]="symbol.id">
+                                {{ symbol.name }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-slide-toggle formControlName="isModifier">Is modifier?</mat-slide-toggle>
+                </div>
+
+                <div>
+                    <mat-slide-toggle formControlName="isFeral">Is feral?</mat-slide-toggle>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</form>

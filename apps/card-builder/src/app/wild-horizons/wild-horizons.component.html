@@ -1,0 +1,112 @@
+<div class="card-collection-loader" *ngIf="!cardData">
+    <mat-spinner class="card-loader"></mat-spinner>
+</div>
+
+<div *ngIf="downloadingCollection" class="card-exporting">
+    <mat-spinner class="card-loader"></mat-spinner>
+    <h2>Grab and coffee and relax, this might take a while...</h2>
+    <p>
+        you can <a href="#" (click)="cancelDownloadCollection()" class="card-exporting-cancel">cancel</a> this process
+        if you want
+    </p>
+</div>
+
+<div #cardElement class="card-hidden" *ngIf="cardData">
+    <swd-card
+        [data]="cardData"
+        [class.card-diceless]="!cardData?.hasDie"
+        [class.card-type-character]="cardData?.type === 'CHARACTER'"
+        [class.card-type-battlefield]="cardData?.type === 'BATTLEFIELD'"
+        [class.card-type-plot]="cardData?.type === 'PLOT'"
+        [class.card-type-upgrade]="cardData?.type === 'UPGRADE'"
+        [class.card-type-downgrade]="cardData?.type === 'DOWNGRADE'"
+        [class.card-type-support]="cardData?.type === 'SUPPORT'"
+        [class.card-type-event]="cardData?.type === 'EVENT'"
+        [class.has-die]="cardData?.hasDie"
+        (cardLoaded)="onLoadCard()"
+    >
+    </swd-card>
+</div>
+
+<div class="card-collection-container" *ngIf="cardCollection.length">
+    <div class="card-container">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+            <span class="spacer">
+                <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
+            </span>
+                <button mat-icon-button [disabled]="!cardCollection.length">
+                    <mat-icon (click)="prevCard()">chevron_left</mat-icon>
+                </button>
+                <button mat-icon-button [disabled]="!cardCollection.length">
+                    <mat-icon (click)="nextCard()">chevron_right</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <swd-card
+            class="preview"
+            [data]="cardData"
+            [class.card-diceless]="!cardData?.hasDie"
+            [class.card-type-character]="cardData?.type === 'CHARACTER'"
+            [class.card-type-battlefield]="cardData?.type === 'BATTLEFIELD'"
+            [class.card-type-plot]="cardData?.type === 'PLOT'"
+            [class.card-type-upgrade]="cardData?.type === 'UPGRADE'"
+            [class.card-type-downgrade]="cardData?.type === 'DOWNGRADE'"
+            [class.card-type-support]="cardData?.type === 'SUPPORT'"
+            [class.card-type-event]="cardData?.type === 'EVENT'"
+            [class.has-die]="cardData?.hasDie"
+        >
+        </swd-card>
+    </div>
+
+    <div class="card-collection-table">
+        <mat-form-field class="form-input">
+            <mat-label>Filter</mat-label>
+            <input
+                matInput
+                (keyup)="applyFilter($event)"
+                placeholder="Type anything to filter"
+            />
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource" matSort class="card-table mat-elevation-z8">
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+                <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+            </ng-container>
+            <ng-container matColumnDef="subtype">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Subtype</th>
+                <td mat-cell *matCellDef="let element">{{ element.subtype }}</td>
+            </ng-container>
+            <ng-container matColumnDef="affiliation">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Affiliation</th>
+                <td mat-cell *matCellDef="let element">{{ element.affiliation }}</td>
+            </ng-container>
+            <ng-container matColumnDef="color">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="">Color</th>
+                <td mat-cell *matCellDef="let element">{{ element.color }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="gridColumns"></tr>
+            <tr mat-row (click)="goToCard(row)" *matRowDef="let row; columns: gridColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
+
+<div class="form-padding" *ngIf="cardCollection.length">
+    <button
+        mat-raised-button
+        color="accent"
+        (click)="downloadCollection()"
+        [disabled]="downloadingCollection"
+    >
+        Download Collection
+    </button>
+</div>

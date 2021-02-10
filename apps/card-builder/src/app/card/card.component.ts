@@ -42,7 +42,9 @@ export class CardComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes['data']) {
             this.isMultiline = false;
-            if (this.data.cardImage) {
+            if (changes['data'].previousValue &&
+                changes['data'].previousValue.cardImage !== this.data.cardImage
+            ) {
                 this.isLoadingImage = true;
             } else {
                 clearTimeout(this.timeoutId);
