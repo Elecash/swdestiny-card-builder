@@ -63,6 +63,9 @@ THE SOFTWARE.
 @angular/platform-browser
 MIT
 
+@angular/router
+MIT
+
 css-loader
 MIT
 Copyright JS Foundation and other contributors
