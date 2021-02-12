@@ -91,14 +91,17 @@ swd-die-side {
 
     .card-signature {
         font-size: 14px;
-        bottom: 15px;
+        bottom: 14px;
         left: 620px;
-        color: black;
     }
 
     .card-affiliation {
         left: 500px;
-        bottom: 16px;
+        bottom: 14px;
+    }
+
+    .card-number {
+        bottom: 14px;
     }
 
     .card-text {
@@ -112,13 +115,20 @@ swd-die-side {
         bottom: 14px;
         left: 410px;
         width: 80px;
-        height: 26px;
         background-color: #eee;
     }
 
     .card-cost,
     .card-type {
         display: none;
+    }
+
+    .card-die {
+        top: -12px;
+    }
+
+    .card-header-subtitle {
+        line-height: 28px;
     }
 }
 
@@ -128,7 +138,7 @@ swd-die-side {
     }
 
     .card-die {
-        top: 0;
+        top: -12px;
         right: -4px;
     }
 
@@ -141,7 +151,7 @@ swd-die-side {
     }
 
     .card-header {
-        top: 506px;
+        top: 502px;
     }
 
     .card-type {
@@ -201,6 +211,11 @@ swd-die-side {
     }
 }
 .card-type-downgrade {
+    .card-image-background {
+        top: 0;
+        left: 0;
+    }
+
     .card-header {
         top: 30px;
     }
@@ -246,13 +261,13 @@ swd-die-side {
     }
 
     .card-die {
-        top: 0;
+        top: -12px;
         right: -4px;
     }
 }
 .card-type-event {
     .card-header {
-        top: 568px;
+        top: 566px;
     }
 
     .card-text {
@@ -375,6 +390,11 @@ swd-die-side {
         position: absolute;
         width: 100%;
         height: auto;
+
+        &-background {
+            top: -35px;
+            left: -35px;
+        }
 
         &-container {
             position: absolute;
@@ -556,13 +576,19 @@ swd-die-side {
 
     &-signature {
         display: flex;
-        align-items: center;
         font-family: "ITC Symbol Std";
         font-size: 16px;
         bottom: 20px;
         left: 315px;
         height: 24px;
         color: gray;
+        background-color: #c5cdc6;
+        border: 2px solid gray;
+        border-radius: 5px;
+        padding: 0 6px 0;
+        width: 250px;
+        justify-content: center;
+        align-items: flex-end;
     }
 
     &-number {
