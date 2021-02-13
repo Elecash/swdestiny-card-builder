@@ -122,6 +122,7 @@ export class WildHorizonsComponent {
                             cardImage: environment.production
                                 ? card[31]
                                 : card[31].replace('https://elecash.github.io/swdestiny-card-builder/', ''),
+                            signature: 'Star Wars Destiny Card Builder',
                         };
                     });
 

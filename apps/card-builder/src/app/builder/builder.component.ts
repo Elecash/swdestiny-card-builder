@@ -31,6 +31,7 @@ export class BuilderComponent {
         type: new FormControl('CHARACTER'),
         subtype: new FormControl('WOOKIE - BOUNTY HUNTER'),
         cardImage: new FormControl('assets/053-black-krrsantan.png'),
+        signature: new FormControl('Star Wars Destiny Card Builder'),
         cardText: new FormControl(
             'You can play *wild* upgrades on this character, ignoring play restrictions.' +
                 '//After the upkeep phase begins, you may deal 3 indirect damage to an opponent unless they discard a ' +
