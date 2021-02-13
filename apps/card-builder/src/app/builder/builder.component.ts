@@ -15,6 +15,7 @@ import html2canvas from 'html2canvas';
 })
 export class BuilderComponent {
     @ViewChild('cardElement', { static: true }) cardElement: ElementRef;
+    @ViewChild('dieElement', { static: true }) dieElement: ElementRef;
     @ViewChild('canvasElement', { static: true }) canvasElement: ElementRef;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -215,5 +216,25 @@ export class BuilderComponent {
 
             document.body.removeChild(canvas);
         });
+    }
+
+    renderDie() {
+        window.scrollTo(0, 0);
+        html2canvas(this.dieElement.nativeElement, { width: 1300, height: 200, scrollY: 20 }).then(
+            (canvas) => {
+                document.body.appendChild(canvas);
+                canvas.classList.add('card-hidden');
+
+                const formValue = this.cardForm.value;
+                const filename = `${formValue.number}-${formValue.title.split(' ').join('-').toLowerCase()}.png`;
+
+                const link = document.createElement('a');
+                link.download = formValue.title ? filename : 'filename.png';
+                link.href = canvas.toDataURL();
+                link.click();
+
+                document.body.removeChild(canvas);
+            }
+        );
     }
 }

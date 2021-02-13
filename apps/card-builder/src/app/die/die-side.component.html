@@ -1,0 +1,20 @@
+<span class="die-side-value die-side-value-container">
+    <span class="die-side-value"
+          [class.card-die-side-solid]="data?.symbol !== 'J'"
+          [class.card-die-side-blank]="data?.symbol === 'J'"
+          [class.card-die-side-modifier]="data?.isModifier"
+          [class.card-die-side-feral]="data?.isFeral">
+        <span class="die-side-value-number" *ngIf="data?.value">{{ data?.value }}</span>
+        <span class="die-side-value-icon" *ngIf="data?.symbol">{{ data?.symbol }}</span>
+    </span>
+</span>
+
+<span class="die-side-cost die-side-cost-container" *ngIf="data?.costValue">
+    <span class="die-side-cost"
+          [class.die-side-cost-indirect]="data?.costSymbol === 'C'"
+          [class.die-side-cost-resource]="data?.costSymbol === 'E'"
+    >
+        <span class="die-side-cost-number">{{ data?.costValue }}</span>
+        <span class="die-side-cost-icon">{{ data?.costSymbol }}</span>
+    </span>
+</span>

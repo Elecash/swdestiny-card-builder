@@ -37,7 +37,7 @@ swd-card {
     }
 }
 
-swd-die-side {
+swd-card-die-side {
     display: flex;
     flex-direction: column;
     width: 126px;
@@ -323,6 +323,105 @@ swd-die-side {
 
 [mat-raised-button].card-image-button {
     margin-left: 20px;
+}
+
+swd-die {
+    margin: 20px;
+}
+
+swd-die-side {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.die {
+    &-side {
+        width: 168px;
+        height: 168px;
+        border-radius: 84px;
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        &-value {
+            width: 60px;
+            height: calc(100% - 2px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            color: white;
+            z-index: 10;
+            right: 0;
+            clip-path: polygon(55% 0%, 100% 0%, 100% 100%, 100% 115%, 0% 80%, 0% 20%);
+
+            &-container {
+                width: 64px;
+                height: 100%;
+                background-color: white;
+            }
+
+            &-number {
+                font-family: 'CorbertDestiny';
+                font-size: 32px;
+            }
+            &-icon {
+                font-family: 'SWDestiny';
+                font-size: 32px;
+            }
+        }
+
+        &-cost {
+            width: calc(100% - 2px);
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            z-index: 10;
+            bottom: 0;
+            clip-path: polygon(40% 0%, 65% 0%, 105% 100%, 100% 100%, 0% 100%, 0% 100%);
+
+            &-container {
+                bottom: -30px;
+                height: 64px;
+                background-color: white;
+            }
+
+            &-resource {
+                color: black;
+                background-color: #d7b22b;
+            }
+
+            &-indirect {
+                color: black;
+                background-color: #d31e25;
+            }
+
+            &-number {
+                font-family: 'CorbertDestiny';
+                font-size: 20px;
+                margin-top: 4px;
+                margin-right: 1px;
+            }
+            &-icon {
+                font-family: 'SWDestiny';
+                font-size: 16px;
+                margin-top: 6px;
+            }
+        }
+    }
+
+    &-image {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
 }
 
 .card {

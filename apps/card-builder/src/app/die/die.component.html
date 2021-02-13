@@ -1,0 +1,9 @@
+<div class="die-side">
+    <img #cardImageElement
+         class="die-image"
+         [src]="data?.cardImage"
+         (load)="onLoadImage()"
+         (error)="onLoadImage()" />
+
+    <swd-die-side [data]="side"></swd-die-side>
+</div>

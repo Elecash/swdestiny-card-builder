@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TextFormatPipe } from './pipes/text-format.pipe';
 import { CardComponent } from './card/card.component';
-import { DieSideComponent } from './die/side.component';
+import { CardDieSideComponent } from './card/card-die.component';
 import { AutosizeDirective } from './directives/autosize.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -25,6 +25,8 @@ import { BuilderComponent } from './builder/builder.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { WildHorizonsComponent } from './wild-horizons/wild-horizons.component';
+import { DieComponent } from './die/die.component';
+import { DieSideComponent } from './die/die-side.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +34,8 @@ import { WildHorizonsComponent } from './wild-horizons/wild-horizons.component';
         BuilderComponent,
         WildHorizonsComponent,
         CardComponent,
+        CardDieSideComponent,
+        DieComponent,
         DieSideComponent,
         TextFormatPipe,
         AutosizeDirective

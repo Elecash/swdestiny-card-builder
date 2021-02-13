@@ -46,12 +46,12 @@
         *ngIf="data?.type === 'SUPPORT' || data?.type === 'PLOT' || data?.type === 'BATTLEFIELD'"
     />
 
-    <swd-die-side [data]="data?.side1"></swd-die-side>
-    <swd-die-side [data]="data?.side2"></swd-die-side>
-    <swd-die-side [data]="data?.side3"></swd-die-side>
-    <swd-die-side [data]="data?.side4"></swd-die-side>
-    <swd-die-side [data]="data?.side5"></swd-die-side>
-    <swd-die-side [data]="data?.side6"></swd-die-side>
+    <swd-card-die-side [data]="data?.side1"></swd-card-die-side>
+    <swd-card-die-side [data]="data?.side2"></swd-card-die-side>
+    <swd-card-die-side [data]="data?.side3"></swd-card-die-side>
+    <swd-card-die-side [data]="data?.side4"></swd-card-die-side>
+    <swd-card-die-side [data]="data?.side5"></swd-card-die-side>
+    <swd-card-die-side [data]="data?.side6"></swd-card-die-side>
 
     <img src="assets/die-bottom-anchor.png" *ngIf="data?.type === 'CHARACTER'" />
     <img

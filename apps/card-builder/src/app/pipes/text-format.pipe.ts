@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { parseCardText } from '../die/die.utils';
+import { parseCardText } from '../utils/die.utils';
 
 @Pipe({
     name: 'swdTextFormat'

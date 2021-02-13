@@ -13,7 +13,7 @@ import {
     parseHasDie,
     parseIsFeral,
     parseIsModifier,
-} from '../die/die.utils';
+} from '../utils/die.utils';
 import { environment } from '../../environments/environment';
 import * as JSZip from 'jszip';
 import html2canvas from 'html2canvas';

@@ -2,7 +2,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'swd-die-side',
-    templateUrl: './side.component.html',
+    templateUrl: './die-side.component.html',
     encapsulation: ViewEncapsulation.None
 })
 export class DieSideComponent {
