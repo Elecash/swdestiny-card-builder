@@ -220,7 +220,7 @@ export class BuilderComponent {
 
     renderDie() {
         window.scrollTo(0, 0);
-        html2canvas(this.dieElement.nativeElement, { width: 1300, height: 200, scrollY: 20 }).then(
+        html2canvas(this.dieElement.nativeElement, { width: 1278, height: 213 }).then(
             (canvas) => {
                 document.body.appendChild(canvas);
                 canvas.classList.add('card-hidden');
