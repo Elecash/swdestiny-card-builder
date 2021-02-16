@@ -26,15 +26,35 @@
         (cardLoaded)="onLoadCard()"
     >
     </swd-card>
+
+    <div *ngIf="cardData?.hasDie">
+        <div #dieElement>
+            <swd-die [data]="cardData" [side]="cardData?.side1"></swd-die>
+            <swd-die [data]="cardData" [side]="cardData?.side2"></swd-die>
+            <swd-die [data]="cardData" [side]="cardData?.side3"></swd-die>
+            <swd-die [data]="cardData" [side]="cardData?.side4"></swd-die>
+            <swd-die [data]="cardData" [side]="cardData?.side5"></swd-die>
+            <swd-die [data]="cardData" [side]="cardData?.side6"></swd-die>
+        </div>
+    </div>
 </div>
 
 <div class="card-collection-container" *ngIf="cardCollection.length">
     <div class="card-container">
         <mat-toolbar color="primary">
             <mat-toolbar-row>
-            <span class="spacer">
-                <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
-            </span>
+                <span class="spacer">
+                    <button
+                        mat-raised-button
+                        color="accent"
+                        (click)="downloadCollection()"
+                        [disabled]="downloadingCollection"
+                    >
+                        Download Collection
+                    </button>
+                    <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
+                    <button mat-raised-button color="accent" (click)="renderDie()" *ngIf="cardData?.hasDie">Download Die</button>
+                </span>
                 <button mat-icon-button [disabled]="!cardCollection.length">
                     <mat-icon (click)="prevCard()">chevron_left</mat-icon>
                 </button>
@@ -63,11 +83,7 @@
     <div class="card-collection-table">
         <mat-form-field class="form-input">
             <mat-label>Filter</mat-label>
-            <input
-                matInput
-                (keyup)="applyFilter($event)"
-                placeholder="Type anything to filter"
-            />
+            <input matInput (keyup)="applyFilter($event)" placeholder="Type anything to filter" />
         </mat-form-field>
 
         <table mat-table [dataSource]="dataSource" matSort class="card-table mat-elevation-z8">
@@ -98,15 +114,4 @@
 
         <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
     </div>
-</div>
-
-<div class="form-padding" *ngIf="cardCollection.length">
-    <button
-        mat-raised-button
-        color="accent"
-        (click)="downloadCollection()"
-        [disabled]="downloadingCollection"
-    >
-        Download Collection
-    </button>
 </div>

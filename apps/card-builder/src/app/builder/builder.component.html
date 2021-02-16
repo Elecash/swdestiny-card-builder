@@ -12,15 +12,17 @@
         [class.has-die]="cardForm.value?.hasDie"
     >
     </swd-card>
-</div>
 
-<div #dieElement class="card-hidden">
-    <swd-die [data]="cardForm.value" [side]="cardForm.value?.side1"></swd-die>
-    <swd-die [data]="cardForm.value" [side]="cardForm.value?.side2"></swd-die>
-    <swd-die [data]="cardForm.value" [side]="cardForm.value?.side3"></swd-die>
-    <swd-die [data]="cardForm.value" [side]="cardForm.value?.side4"></swd-die>
-    <swd-die [data]="cardForm.value" [side]="cardForm.value?.side5"></swd-die>
-    <swd-die [data]="cardForm.value" [side]="cardForm.value?.side6"></swd-die>
+    <div *ngIf="cardForm.value?.hasDie">
+        <div #dieElement>
+            <swd-die [data]="cardForm.value" [side]="cardForm.value?.side1"></swd-die>
+            <swd-die [data]="cardForm.value" [side]="cardForm.value?.side2"></swd-die>
+            <swd-die [data]="cardForm.value" [side]="cardForm.value?.side3"></swd-die>
+            <swd-die [data]="cardForm.value" [side]="cardForm.value?.side4"></swd-die>
+            <swd-die [data]="cardForm.value" [side]="cardForm.value?.side5"></swd-die>
+            <swd-die [data]="cardForm.value" [side]="cardForm.value?.side6"></swd-die>
+        </div>
+    </div>
 </div>
 
 <div class="card-container">
@@ -28,7 +30,7 @@
         <mat-toolbar-row>
             <span class="spacer">
                 <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
-                <button mat-raised-button color="accent" (click)="renderDie()">Download Die</button>
+                <button mat-raised-button color="accent" (click)="renderDie()" *ngIf="cardForm.value?.hasDie">Download Die</button>
             </span>
         </mat-toolbar-row>
     </mat-toolbar>

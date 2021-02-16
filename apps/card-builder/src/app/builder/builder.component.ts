@@ -14,9 +14,9 @@ import html2canvas from 'html2canvas';
     styleUrls: ['builder.component.scss'],
 })
 export class BuilderComponent {
-    @ViewChild('cardElement', { static: true }) cardElement: ElementRef;
-    @ViewChild('dieElement', { static: true }) dieElement: ElementRef;
-    @ViewChild('canvasElement', { static: true }) canvasElement: ElementRef;
+    @ViewChild('cardElement', { static: false }) cardElement: ElementRef;
+    @ViewChild('dieElement', { static: false }) dieElement: ElementRef;
+    @ViewChild('canvasElement', { static: false }) canvasElement: ElementRef;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -95,7 +95,6 @@ export class BuilderComponent {
 
     currentCard = 0;
     cardCollection: Card[] = [];
-    cardLoaded = false;
     downloadingCollection = false;
     zip;
 
@@ -220,13 +219,13 @@ export class BuilderComponent {
 
     renderDie() {
         window.scrollTo(0, 0);
-        html2canvas(this.dieElement.nativeElement, { width: 1278, height: 213 }).then(
-            (canvas) => {
+        if (this.dieElement && this.dieElement.nativeElement) {
+            html2canvas(this.dieElement.nativeElement, { width: 1278, height: 213 }).then((canvas) => {
                 document.body.appendChild(canvas);
                 canvas.classList.add('card-hidden');
 
                 const formValue = this.cardForm.value;
-                const filename = `${formValue.number}-${formValue.title.split(' ').join('-').toLowerCase()}.png`;
+                const filename = `${formValue.number}-${formValue.title.split(' ').join('-').toLowerCase()}-die.png`;
 
                 const link = document.createElement('a');
                 link.download = formValue.title ? filename : 'filename.png';
@@ -234,7 +233,7 @@ export class BuilderComponent {
                 link.click();
 
                 document.body.removeChild(canvas);
-            }
-        );
+            });
+        }
     }
 }

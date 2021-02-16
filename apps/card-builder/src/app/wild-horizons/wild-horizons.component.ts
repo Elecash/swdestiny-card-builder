@@ -25,6 +25,7 @@ import html2canvas from 'html2canvas';
 })
 export class WildHorizonsComponent {
     @ViewChild('cardElement', { static: false }) cardElement: ElementRef;
+    @ViewChild('dieElement', { static: false }) dieElement: ElementRef;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -36,6 +37,7 @@ export class WildHorizonsComponent {
     cardCollection: Card[] = [];
     downloadingCollection = false;
     zip;
+    zipDice;
 
     gridColumns = ['title', 'type', 'subtype', 'affiliation', 'color'];
 
@@ -181,6 +183,7 @@ export class WildHorizonsComponent {
         this.currentCard = 0;
         this.updateForm(this.currentCard);
         this.zip = new JSZip();
+        this.zipDice = new JSZip();
         this.downloadingCollection = true;
         this.renderCanvas();
     }
@@ -212,6 +215,7 @@ export class WildHorizonsComponent {
             };
         }
         window.scrollTo(0, 0);
+
         html2canvas(this.cardElement.nativeElement.querySelector('swd-card'), options).then((canvas) => {
             document.body.appendChild(canvas);
             canvas.classList.add('card-hidden');
@@ -222,15 +226,7 @@ export class WildHorizonsComponent {
             if (this.downloadingCollection) {
                 const imgUri = canvas.toDataURL().split(';base64,')[1];
                 this.zip.file(filename, imgUri, { base64: true });
-
-                if (this.currentCard === this.cardCollection.length - 1) {
-                    this.downloadingCollection = false;
-                    this.zip.generateAsync({ type: 'blob' }).then((content) => {
-                        window.location.href = URL.createObjectURL(content);
-                    });
-                } else {
-                    this.nextCard();
-                }
+                this.renderDie();
             } else {
                 const link = document.createElement('a');
                 link.download = formValue.title ? filename : 'filename.png';
@@ -240,5 +236,51 @@ export class WildHorizonsComponent {
 
             document.body.removeChild(canvas);
         });
+    }
+
+    renderDie() {
+        window.scrollTo(0, 0);
+        if (this.dieElement && this.dieElement.nativeElement) {
+            html2canvas(this.dieElement.nativeElement, { width: 1278, height: 213 }).then((canvas) => {
+                document.body.appendChild(canvas);
+                canvas.classList.add('card-hidden');
+                const imgUri = canvas.toDataURL().split(';base64,')[1];
+                const formValue = this.cardData;
+                const filename = `${formValue.number}-${formValue.title.split(' ').join('-').toLowerCase()}-die.png`;
+                this.zipDice.file(filename, imgUri, { base64: true });
+                document.body.removeChild(canvas);
+
+                if (this.downloadingCollection) {
+                    this.endRenderDie();
+                } else {
+                    const link = document.createElement('a');
+                    link.download = formValue.title ? filename : 'filename.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                }
+            });
+        } else {
+            this.endRenderDie();
+        }
+    }
+
+    endRenderDie() {
+        if (this.currentCard === 7) {
+            this.downloadingCollection = false;
+            this.zip.generateAsync({ type: 'blob' }).then((content) => {
+                const link = document.createElement('a');
+                link.download = 'cards.zip';
+                link.href = URL.createObjectURL(content);
+                link.click();
+            });
+            this.zipDice.generateAsync({ type: 'blob' }).then((content) => {
+                const link = document.createElement('a');
+                link.download = 'dice-stickers.zip';
+                link.href = URL.createObjectURL(content);
+                link.click();
+            });
+        } else {
+            this.nextCard();
+        }
     }
 }
