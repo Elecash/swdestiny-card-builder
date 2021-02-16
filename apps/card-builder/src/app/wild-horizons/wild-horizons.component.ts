@@ -247,10 +247,9 @@ export class WildHorizonsComponent {
                 const imgUri = canvas.toDataURL().split(';base64,')[1];
                 const formValue = this.cardData;
                 const filename = `${formValue.number}-${formValue.title.split(' ').join('-').toLowerCase()}-die.png`;
-                this.zipDice.file(filename, imgUri, { base64: true });
-                document.body.removeChild(canvas);
 
                 if (this.downloadingCollection) {
+                    this.zipDice.file(filename, imgUri, { base64: true });
                     this.endRenderDie();
                 } else {
                     const link = document.createElement('a');
@@ -258,6 +257,7 @@ export class WildHorizonsComponent {
                     link.href = canvas.toDataURL();
                     link.click();
                 }
+                document.body.removeChild(canvas);
             });
         } else {
             this.endRenderDie();
@@ -265,7 +265,7 @@ export class WildHorizonsComponent {
     }
 
     endRenderDie() {
-        if (this.currentCard === 7) {
+        if (this.currentCard === this.cardCollection.length - 1) {
             this.downloadingCollection = false;
             this.zip.generateAsync({ type: 'blob' }).then((content) => {
                 const link = document.createElement('a');
