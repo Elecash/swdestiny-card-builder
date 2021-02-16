@@ -30,7 +30,7 @@
         <mat-toolbar-row>
             <span class="spacer">
                 <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
-                <button mat-raised-button color="accent" (click)="renderDie()" *ngIf="cardForm.value?.hasDie">Download Die</button>
+                <button mat-raised-button color="accent" class="card-button" (click)="renderDie()" *ngIf="cardForm.value?.hasDie">Download Die</button>
             </span>
         </mat-toolbar-row>
     </mat-toolbar>
@@ -101,7 +101,7 @@
 
             <div class="form-input">
                 <mat-label>Card Image</mat-label>
-                <button mat-raised-button color="accent" class="card-image-button" (click)="fileInput.click()">
+                <button mat-raised-button color="accent" class="card-button" (click)="fileInput.click()">
                     Choose File
                 </button>
                 <input hidden (change)="onFileSelected($event)" #fileInput type="file" />

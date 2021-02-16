@@ -44,16 +44,8 @@
         <mat-toolbar color="primary">
             <mat-toolbar-row>
                 <span class="spacer">
-                    <button
-                        mat-raised-button
-                        color="accent"
-                        (click)="downloadCollection()"
-                        [disabled]="downloadingCollection"
-                    >
-                        Download Collection
-                    </button>
                     <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
-                    <button mat-raised-button color="accent" (click)="renderDie()" *ngIf="cardData?.hasDie">Download Die</button>
+                    <button mat-raised-button color="accent" class="card-button" (click)="renderDie()" *ngIf="cardData?.hasDie">Download Die</button>
                 </span>
                 <button mat-icon-button [disabled]="!cardCollection.length">
                     <mat-icon (click)="prevCard()">chevron_left</mat-icon>
@@ -113,5 +105,14 @@
         </table>
 
         <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+
+        <button
+            mat-raised-button
+            color="accent"
+            (click)="downloadCollection()"
+            [disabled]="downloadingCollection"
+        >
+            Download Collection
+        </button>
     </div>
 </div>
