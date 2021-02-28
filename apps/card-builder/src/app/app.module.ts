@@ -27,6 +27,9 @@ import { MatListModule } from '@angular/material/list';
 import { WildHorizonsComponent } from './wild-horizons/wild-horizons.component';
 import { DieComponent } from './die/die.component';
 import { DieSideComponent } from './die/die-side.component';
+import { AboutComponent } from './about/about.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ExportToolComponent } from './export-tool/export-tool.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +41,9 @@ import { DieSideComponent } from './die/die-side.component';
         DieComponent,
         DieSideComponent,
         TextFormatPipe,
-        AutosizeDirective
+        AutosizeDirective,
+        AboutComponent,
+        ExportToolComponent
     ],
     imports: [
         BrowserModule,
@@ -58,7 +63,8 @@ import { DieSideComponent } from './die/die-side.component';
         MatPaginatorModule,
         MatSortModule,
         MatSidenavModule,
-        MatListModule
+        MatListModule,
+        MatDialogModule
     ],
     providers: [],
     bootstrap: [AppComponent],

@@ -1,6 +1,9 @@
 <header>
-    <mat-toolbar color="primary">
-        <span>Star Wars Destiny Builder</span>
+    <mat-toolbar class="toolbar" color="primary">
+        <div><span>Star Wars Destiny Builder</span></div>
+        <button mat-button (click)="showAbout()">
+            <mat-icon>help</mat-icon> About
+        </button>
     </mat-toolbar>
 </header>
 
@@ -9,6 +12,7 @@
         <mat-selection-list #navList [multiple]="false">
             <mat-list-option [value]="'builder'" [routerLink]="'builder'" routerLinkActive="">Card Builder</mat-list-option>
             <mat-list-option [value]="'wild-horizons'" [routerLink]="'wild-horizons'">Wild Horizons</mat-list-option>
+            <mat-list-option [value]="'export-tool'" [routerLink]="'export-tool'">Export Tool</mat-list-option>
         </mat-selection-list>
     </mat-sidenav>
     <mat-sidenav-content>

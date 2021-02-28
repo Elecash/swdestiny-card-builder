@@ -50,6 +50,10 @@ swd-card-die-side {
     }
 }
 
+.toolbar {
+    justify-content: space-between;
+}
+
 .u-fs-16 {
     font-size: 16px !important;
 }
@@ -68,6 +72,34 @@ swd-card-die-side {
 
 .nav-bar {
     width: 200px;
+}
+
+.import-collection {
+    width: 80%;
+
+    &-description {
+        margin: 0 24px;
+    }
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: #000000;
+    animation: spinner .8s linear infinite;
 }
 
 .card-hidden {

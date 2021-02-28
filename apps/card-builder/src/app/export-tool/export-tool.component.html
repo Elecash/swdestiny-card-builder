@@ -1,5 +1,25 @@
-<div class="card-collection-loader" *ngIf="!cardData">
-    <mat-spinner class="card-loader"></mat-spinner>
+<div *ngIf="!cardData" class="import-collection-description">
+    <p>
+        Import a SW Destiny collection from a Google Calc Spreadsheet. Create a copy of
+        <a
+            href="https://docs.google.com/spreadsheets/d/1tZ22TWYjNWb7IQjQzTPcnKit8EVulY8KP_CDOjMytZI/edit#gid=0"
+            target="_blank">this Spreadsheet</a> and go to File > Publish to Web > Publish as CSV.
+    </p>
+
+    <p>Copy the URL and paste it here and click Import. Review everything is ok and click Download Collection.</p>
+
+    <mat-form-field class="form-input import-collection">
+        <mat-label>CSV URL</mat-label>
+        <input #csvUrlInput matInput placeholder="" />
+    </mat-form-field>
+
+    <button mat-raised-button color="accent"
+            class="spinner"
+            (click)="importCards(csvUrlInput?.value)"
+            [class.spinner]="loading"
+            [disabled]="loading">
+        Import Collection
+    </button>
 </div>
 
 <div *ngIf="downloadingCollection" class="card-exporting">
@@ -45,7 +65,15 @@
             <mat-toolbar-row>
                 <span class="spacer">
                     <button mat-raised-button color="accent" (click)="renderCanvas()">Download Card</button>
-                    <button mat-raised-button color="accent" class="card-button" (click)="renderDie()" *ngIf="cardData?.hasDie">Download Die</button>
+                    <button
+                        mat-raised-button
+                        color="accent"
+                        class="card-button"
+                        (click)="renderDie()"
+                        *ngIf="cardData?.hasDie"
+                    >
+                        Download Die
+                    </button>
                 </span>
                 <button mat-icon-button [disabled]="!cardCollection.length">
                     <mat-icon (click)="prevCard()">chevron_left</mat-icon>
@@ -106,13 +134,8 @@
 
         <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
 
-        <a
-            mat-raised-button
-            color="accent"
-            href="https://drive.google.com/file/d/1JNbtA6VpUVEl9BFEnA66RWL2JjmJ_osL/view?usp=sharing"
-            target="_blank"
-        >
+        <button mat-raised-button color="accent" (click)="downloadCollection()" [disabled]="downloadingCollection">
             Download Collection
-        </a>
+        </button>
     </div>
 </div>

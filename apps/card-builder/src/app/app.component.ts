@@ -1,5 +1,7 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
+import { MatDialog } from '@angular/material/dialog';
+import { AboutComponent } from './about/about.component';
 
 @Component({
     selector: 'swd-root',
@@ -9,4 +11,10 @@ import { MatSelectionList } from '@angular/material/list';
 })
 export class AppComponent {
     @ViewChild('navList') navList: MatSelectionList;
+
+    constructor(public dialog: MatDialog) {}
+
+    showAbout() {
+        this.dialog.open(AboutComponent);
+    }
 }

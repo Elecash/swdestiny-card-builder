@@ -4,8 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Card } from '../card.interface';
-import { HttpClient } from '@angular/common/http';
-import { Papa } from 'ngx-papaparse';
 import html2canvas from 'html2canvas';
 
 @Component({
@@ -155,9 +153,7 @@ export class BuilderComponent {
 
     ctx: CanvasRenderingContext2D;
 
-    constructor(private cd: ChangeDetectorRef, private http: HttpClient, private papa: Papa) {
-        console.log(JSON.stringify(this.cardForm.value));
-    }
+    constructor(private cd: ChangeDetectorRef) {}
 
     onFileSelected(event) {
         if (typeof FileReader !== 'undefined') {
