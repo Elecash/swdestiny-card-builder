@@ -30,6 +30,7 @@ import { DieSideComponent } from './die/die-side.component';
 import { AboutComponent } from './about/about.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ExportToolComponent } from './export-tool/export-tool.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { ExportToolComponent } from './export-tool/export-tool.component';
         ReactiveFormsModule,
         BrowserAnimationsModule,
         AppRoutingModule,
+        ImageCropperModule,
         MatInputModule,
         MatTabsModule,
         MatSlideToggleModule,

@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Card } from '../card.interface';
 import html2canvas from 'html2canvas';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
     selector: 'swd-builder',
@@ -152,20 +153,16 @@ export class BuilderComponent {
     ];
 
     ctx: CanvasRenderingContext2D;
+    imageChangedEvent;
 
     constructor(private cd: ChangeDetectorRef) {}
 
     onFileSelected(event) {
-        if (typeof FileReader !== 'undefined') {
-            const reader = new FileReader();
+        this.imageChangedEvent = event;
+    }
 
-            reader.onload = (e: any) => {
-                this.cardForm.get('cardImage').setValue(e.target.result);
-                this.cd.detectChanges();
-            };
-
-            reader.readAsDataURL(event.target.files[0]);
-        }
+    onImageCropped(event: ImageCroppedEvent) {
+        this.cardForm.get('cardImage').setValue(event.base64);
     }
 
     applyFilter(event: Event) {

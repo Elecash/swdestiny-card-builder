@@ -230,7 +230,7 @@ swd-card-die-side {
     }
 
     .card-header {
-        top: 540px;
+        top: 536px;
 
         &-title {
             max-width: 320px;
@@ -243,18 +243,15 @@ swd-card-die-side {
     }
 }
 .card-type-downgrade {
-    .card-image-background {
-        top: 0;
-        left: 0;
-    }
-
     .card-header {
-        top: 30px;
+        top: 32px;
+        left: 170px;
+        width: 410px;
     }
 
     .card-cost {
-        top: 87px;
-        left: 32px;
+        top: 94px;
+        left: 39px;
     }
 
     .card-die {
@@ -833,12 +830,12 @@ swd-die-side {
 
                 &-value {
                     font-family: 'CorbertDestiny';
-                    font-size: 32px;
+                    font-size: 36px;
                     margin-right: 6px;
                 }
                 &-icon {
                     font-family: 'SWDestiny';
-                    font-size: 24px;
+                    font-size: 26px;
                     padding-bottom: 2px;
 
                 }
@@ -854,12 +851,12 @@ swd-die-side {
 
                 &-value {
                     font-family: 'CorbertDestiny';
-                    font-size: 22px;
+                    font-size: 26px;
                     margin-right: 6px;
                 }
                 &-icon {
                     font-family: 'SWDestiny';
-                    font-size: 16px;
+                    font-size: 18px;
                     padding-bottom: 2px;
 
                     &-resource {

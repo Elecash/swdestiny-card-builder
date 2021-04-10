@@ -105,6 +105,13 @@
                     Choose File
                 </button>
                 <input hidden (change)="onFileSelected($event)" #fileInput type="file" />
+
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    format="png"
+                    (imageCropped)="onImageCropped($event)">
+                </image-cropper>
             </div>
         </mat-tab>
 
