@@ -14,6 +14,7 @@
 <div #cardElement class="card-hidden" *ngIf="cardData">
     <swd-card
         [data]="cardData"
+        class="card-hidden__container"
         [class.card-diceless]="!cardData?.hasDie"
         [class.card-type-character]="cardData?.type === 'CHARACTER'"
         [class.card-type-battlefield]="cardData?.type === 'BATTLEFIELD'"

@@ -203,13 +203,13 @@ export class ExportToolComponent {
 
         if (this.cardData.type === 'BATTLEFIELD') {
             options = {
-                width: 1000,
-                height: 705,
+                width: 1070,
+                height: 775,
             };
         } else {
             options = {
-                width: 705,
-                height: 1000,
+                width: 775,
+                height: 1070,
             };
         }
         window.scrollTo(0, 0);
