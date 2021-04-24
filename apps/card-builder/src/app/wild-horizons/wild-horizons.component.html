@@ -56,20 +56,22 @@
             </mat-toolbar-row>
         </mat-toolbar>
 
-        <swd-card
-            class="preview"
-            [data]="cardData"
-            [class.card-diceless]="!cardData?.hasDie"
-            [class.card-type-character]="cardData?.type === 'CHARACTER'"
-            [class.card-type-battlefield]="cardData?.type === 'BATTLEFIELD'"
-            [class.card-type-plot]="cardData?.type === 'PLOT'"
-            [class.card-type-upgrade]="cardData?.type === 'UPGRADE'"
-            [class.card-type-downgrade]="cardData?.type === 'DOWNGRADE'"
-            [class.card-type-support]="cardData?.type === 'SUPPORT'"
-            [class.card-type-event]="cardData?.type === 'EVENT'"
-            [class.has-die]="cardData?.hasDie"
-        >
-        </swd-card>
+        <div class="preview-cover" [class.preview-cover__battlefield]="cardData?.type === 'BATTLEFIELD'">
+            <swd-card
+                class="preview"
+                [data]="cardData"
+                [class.card-diceless]="!cardData?.hasDie"
+                [class.card-type-character]="cardData?.type === 'CHARACTER'"
+                [class.card-type-battlefield]="cardData?.type === 'BATTLEFIELD'"
+                [class.card-type-plot]="cardData?.type === 'PLOT'"
+                [class.card-type-upgrade]="cardData?.type === 'UPGRADE'"
+                [class.card-type-downgrade]="cardData?.type === 'DOWNGRADE'"
+                [class.card-type-support]="cardData?.type === 'SUPPORT'"
+                [class.card-type-event]="cardData?.type === 'EVENT'"
+                [class.has-die]="cardData?.hasDie"
+            >
+            </swd-card>
+        </div>
     </div>
 
     <div class="card-collection-table">

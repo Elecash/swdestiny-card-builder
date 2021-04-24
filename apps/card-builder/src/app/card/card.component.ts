@@ -24,7 +24,7 @@ export class CardComponent implements OnChanges {
     @Output() cardLoaded: EventEmitter<null> = new EventEmitter<null>();
 
     maxTextHeight = {
-        BATTLEFIELD: 175,
+        BATTLEFIELD: 120,
         PLOT: 175,
         CHARACTER: 230,
         DICELESS_CHARACTER: 210,

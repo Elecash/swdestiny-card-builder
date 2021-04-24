@@ -1,6 +1,7 @@
 <div #cardElement class="card-hidden">
     <swd-card
         [data]="cardForm.value"
+        class="card-hidden__container"
         [class.card-diceless]="!cardForm.value?.hasDie"
         [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
         [class.card-type-battlefield]="cardForm.value?.type === 'BATTLEFIELD'"
@@ -35,20 +36,22 @@
         </mat-toolbar-row>
     </mat-toolbar>
 
-    <swd-card
-        class="preview"
-        [data]="cardForm.value"
-        [class.card-diceless]="!cardForm.value?.hasDie"
-        [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
-        [class.card-type-battlefield]="cardForm.value?.type === 'BATTLEFIELD'"
-        [class.card-type-plot]="cardForm.value?.type === 'PLOT'"
-        [class.card-type-upgrade]="cardForm.value?.type === 'UPGRADE'"
-        [class.card-type-downgrade]="cardForm.value?.type === 'DOWNGRADE'"
-        [class.card-type-support]="cardForm.value?.type === 'SUPPORT'"
-        [class.card-type-event]="cardForm.value?.type === 'EVENT'"
-        [class.has-die]="cardForm.value?.hasDie"
-    >
-    </swd-card>
+    <div class="preview-cover" [class.preview-cover__battlefield]="cardForm.value?.type === 'BATTLEFIELD'">
+        <swd-card
+            class="preview"
+            [data]="cardForm.value"
+            [class.card-diceless]="!cardForm.value?.hasDie"
+            [class.card-type-character]="cardForm.value?.type === 'CHARACTER'"
+            [class.card-type-battlefield]="cardForm.value?.type === 'BATTLEFIELD'"
+            [class.card-type-plot]="cardForm.value?.type === 'PLOT'"
+            [class.card-type-upgrade]="cardForm.value?.type === 'UPGRADE'"
+            [class.card-type-downgrade]="cardForm.value?.type === 'DOWNGRADE'"
+            [class.card-type-support]="cardForm.value?.type === 'SUPPORT'"
+            [class.card-type-event]="cardForm.value?.type === 'EVENT'"
+            [class.has-die]="cardForm.value?.hasDie"
+        >
+        </swd-card>
+    </div>
 </div>
 
 <form [formGroup]="cardForm" class="card-form">
